@@ -1,3 +1,4 @@
-import ejercicio1 as ej1
+import Utils
 
-print("a) ", ej1.entropia([1/6 for _ in range(6)]))
+print("a) ", Utils.entropia([1/6 for _ in range(6)]))
+print("b) ", Utils.entropia([1/9, 1/6, 1/9, 1/9, 1/6, 1/3]))
