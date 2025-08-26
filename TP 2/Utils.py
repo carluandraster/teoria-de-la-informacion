@@ -20,3 +20,19 @@ def entropia(probabilidades: list, r=2) -> float:
     for p in probabilidades:
         H += p * cantidadInformacion(p, r)
     return H
+
+# Funcion que devuelve alfabeto con sus probabilidades
+def getAlfaProbabilidades(texto: str):
+    alfabeto = []
+    probabilidades = []
+    longitud = len(texto)
+    for simbolo in texto:
+        if simbolo in alfabeto:
+            index = alfabeto.index(simbolo)
+            probabilidades[index] += 1
+        else:
+            alfabeto.append(simbolo)
+            probabilidades.append(1)
+    for i in range(len(probabilidades)):
+        probabilidades[i] /= longitud
+    return alfabeto, probabilidades
