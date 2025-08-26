@@ -1,0 +1,1 @@
+print("0 porque es seguro que del universo de sucesos solo puede ocurrir S1")
