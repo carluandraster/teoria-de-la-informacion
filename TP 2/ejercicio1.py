@@ -25,3 +25,4 @@ def entropia(probabilidades: list, r=2) -> float:
 probabilidades = [0.828, 0.805, 0.135, 0.985, 0.993, 0.46, 0.041]
 informaciones = [cantidadInformacion(p) for p in probabilidades]
 print("a) ", informaciones)
+print("b) Entropía de la fuente: ", entropia(probabilidades))
