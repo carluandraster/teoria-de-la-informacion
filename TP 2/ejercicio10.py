@@ -1,5 +1,5 @@
 # Función recursiva para generar las combinaciones
-def generar_combinaciones(alfabeto: list, N: int) -> list[str]:
+def generar_combinaciones(alfabeto: list, N: int) -> list:
     if N == 1:
         return [[letra] for letra in alfabeto]
     else:
@@ -30,6 +30,6 @@ def generarConExtension(alfabeto: list, probabilidades: list[float], N: int):
         nuevas_probabilidades.append(probabilidad)
 
     # Convertir las combinaciones de listas de letras a cadenas
-    nuevas_letras = [''.join(combinacion) for combinacion in combinaciones]
+    nuevas_letras = [''.join(str(combinacion)) for combinacion in combinaciones]
 
     return nuevas_letras, nuevas_probabilidades
