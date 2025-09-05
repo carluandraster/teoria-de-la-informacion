@@ -1,8 +1,14 @@
 from Matriz import Matriz
 
-# Dada una cadena de caracteres que representa un mensaje emitido por una fuente,
-# devuelve una lista con su alfabeto y su matriz de transiciones de primer orden.
 def obtenerAlfabetoYTransiciones(mensaje: str) -> tuple[list[str], Matriz[float]]:
+    """
+    Obtiene el alfabeto y la matriz de transiciones de primer orden de un mensaje.
+    
+    Parámetros:
+        mensaje (str): El mensaje emitido por la fuente.
+    Retorna:
+        tuple: Una tupla que contiene una lista con el alfabeto y una lista con su matriz de transiciones.
+    """
     alfabeto = []
     longitud = len(mensaje)
 
