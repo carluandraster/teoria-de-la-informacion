@@ -145,3 +145,18 @@ class Matriz(Generic[T]):
         for i in range(self.__cantFilas):
             self.__matriz[i].append(columna[i])
         self.__cantColumnas += 1
+
+    # Normaliza la matriz a lo largo del eje especificado
+    # (True para filas, False para columnas)
+    def normalizar(self, axis = False) -> None:
+        if axis:
+            for i in range(self.__cantFilas):
+                total = sum(self.__matriz[i])
+                if total > 0:
+                    self.__matriz[i] = [x / total for x in self.__matriz[i]]
+        else:
+            for j in range(self.__cantColumnas):
+                total = sum(self.__matriz[i][j] for i in range(self.__cantFilas))
+                if total > 0:
+                    for i in range(self.__cantFilas):
+                        self.__matriz[i][j] /= total
