@@ -76,6 +76,10 @@ class Matriz(Generic[T]):
         resultado = [[self.__matriz[i][j] * escalar for j in range(self.__cantColumnas)] for i in range(self.__cantFilas)]
         return Matriz(self.__cantFilas, self.__cantColumnas, resultado)
     
+    def __imul__(self, otro) -> 'Matriz[T]':
+        self = self * otro
+        return self
+
     def __str__(self) -> str:
         return '\n'.join(['\t'.join([str(self.__matriz[i][j]) if self.__matriz[i][j] is not None else 'None' for j in range(self.__cantColumnas)]) for i in range(self.__cantFilas)])
     
