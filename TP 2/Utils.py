@@ -1,5 +1,6 @@
 import math
 from Matriz import Matriz
+import MatrizFactory as mf
 
 # Función para calcular la cantidad de información
 # p: probabilidad del evento
@@ -44,14 +45,7 @@ def estadosEstables(matriz: Matriz[float]) -> Matriz[float]:
         raise ValueError("La matriz debe ser cuadrada para calcular los estados estables.")
     
     n = matriz.cantFilas
-    A = [[0.0 for _ in range(n)] for _ in range(n)]
-    
-    for i in range(n):
-        for j in range(n):
-            if i == j:
-                A[i][j] = matriz.get(i, j) - 1.0
-            else:
-                A[i][j] = matriz.get(i, j)
+    A = matriz - mf.identidad(n)
 
     for j in range(n):
         A[n-1][j] = 1.0
