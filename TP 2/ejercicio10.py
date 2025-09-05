@@ -1,5 +1,13 @@
-# Función recursiva para generar las combinaciones
 def generar_combinaciones(alfabeto: list, N: int) -> list:
+    """Genera todas las combinaciones posibles de longitud N
+    a partir del alfabeto dado.
+    
+    Parametros:
+        alfabeto (list): lista de elementos del alfabeto
+        N (int): longitud de las combinaciones a generar
+    Retorna:
+        list: lista de combinaciones generadas
+    """
     if N == 1:
         return [[letra] for letra in alfabeto]
     else:
@@ -10,10 +18,17 @@ def generar_combinaciones(alfabeto: list, N: int) -> list:
                 nuevas_combinaciones.append(combinacion + [letra])
         return nuevas_combinaciones
 
-# Esta función recibe una lista con el alfabeto de una fuente, otra
-# con su distribución de probabilidades y un entero N, y genera dos nuevas
-# listas con la extensión de orden N y su distribución de probabilidades
 def generarConExtension(alfabeto: list, probabilidades: list[float], N: int):
+    """Genera el alfabeto y la distribución de probabilidades
+    de una fuente con extensión de orden N.
+    
+    Parámetros:
+        alfabeto (list): lista de elementos del alfabeto
+        probabilidades (list[float]): lista de probabilidades de cada elemento del alfabeto
+        N (int): orden de la extensión
+    Retorna:
+        tuple: (nuevas_letras, nuevas_probabilidades)
+    """
     if N <= 0:
         return [], []
 
