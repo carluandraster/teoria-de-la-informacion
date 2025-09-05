@@ -2,6 +2,7 @@ from typing import TypeVar, Generic
 
 T = TypeVar('T')
 
+# Implementación de la clase Matriz genérica
 class Matriz(Generic[T]):
     __cantFilas: int
     __cantColumnas: int
