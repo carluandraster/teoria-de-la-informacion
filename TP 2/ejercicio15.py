@@ -63,7 +63,7 @@ def simularMensaje(alfabeto: list[str], transiciones: Matriz[float], longitud: i
 
     return mensaje
 
-def esFuenteDeMemoriaNula(matriz_de_transiciones: Matriz[float], tolerancia: float = 0.001) -> bool:
+def esFuenteDeMemoriaNula(matriz_de_transiciones: Matriz[float], tolerancia: float = 0.1) -> bool:
     """
     Verifica si una fuente es de memoria nula.
     
