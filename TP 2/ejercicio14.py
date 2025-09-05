@@ -2,8 +2,17 @@ from Matriz import Matriz
 import MatrizFactory as mf
 import Utils
 
-# Función que, a partir de una matriz de transición, devuelve la matriz de estados estables
 def estadosEstables(matriz: Matriz[float]) -> Matriz[float]:
+    """
+    Calcula la matriz de estados estables de una cadena de Markov dada su matriz de transición.
+    
+    Parámetros:
+        matriz (Matriz[float]): La matriz de transición de la cadena de Markov.
+    Retorna:
+        Matriz[float]: La matriz de estados estables.
+    Lanza:
+        ValueError: Si la matriz no es cuadrada.
+    """
     if matriz.cantidadFilas != matriz.cantidadColumnas:
         raise ValueError("La matriz debe ser cuadrada para calcular los estados estables.")
 
@@ -18,8 +27,19 @@ def estadosEstables(matriz: Matriz[float]) -> Matriz[float]:
 
     return A.inversa * b
 
-# Devuelve la entropía de una fuenta markoviana
 def entropiaMarkoviana(matriz: Matriz[float]) -> float:
+    """
+    Calcula la entropía markoviana de una cadena de Markov dada su matriz de transición.
+    
+    Parámetros:
+        matriz (Matriz[float]): La matriz de transición de la cadena de Markov.
+    Retorna:
+        float: La entropía markoviana.
+    Lanza:
+        ValueError: Si la matriz no es cuadrada.
+    """
+    if matriz.cantidadFilas != matriz.cantidadColumnas:
+        raise ValueError("La matriz debe ser cuadrada para calcular la entropía markoviana.")
     estados = estadosEstables(matriz)
     H = 0
     for i in range(matriz.cantidadColumnas):
