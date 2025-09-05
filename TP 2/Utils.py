@@ -59,7 +59,7 @@ def estadosEstables(matriz: Matriz[float]) -> Matriz[float]:
 def entropiaMarkoviana(matriz: Matriz[float]) -> float:
     estados = estadosEstables(matriz)
     H = 0
-    for i in range(matriz.cantidadFilas):
-        fila = matriz.getFila(i)
-        H += estados.get(i, 0) * entropia(fila)
+    for i in range(matriz.cantidadColumnas):
+        columna = matriz.getColumna(i)
+        H += estados.get(i, 0) * entropia(columna)
     return H
