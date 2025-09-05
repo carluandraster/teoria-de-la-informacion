@@ -1,7 +1,7 @@
 from Matriz import Matriz
 
 # Dada una cadena de caracteres que representa un mensaje emitido por una fuente,
-# devuelve una lista con su alfabeto y su matriz de transiciónes de primer orden.
+# devuelve una lista con su alfabeto y su matriz de transiciones de primer orden.
 def obtenerAlfabetoYTransiciones(mensaje: str) -> tuple[list[str], Matriz[float]]:
     alfabeto = []
     transiciones = []
@@ -25,3 +25,6 @@ def obtenerAlfabetoYTransiciones(mensaje: str) -> tuple[list[str], Matriz[float]
             transiciones[i] = [x / total for x in transiciones[i]]
 
     return alfabeto, Matriz(len(transiciones), len(transiciones[0]), transiciones)
+
+# Test
+print(obtenerAlfabetoYTransiciones("Hola")[1])
