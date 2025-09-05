@@ -25,6 +25,10 @@ class Matriz(Generic[T]):
             return self.__matriz[fila][columna]
         return None
     
+    def set(self, fila: int, columna: int, valor: T) -> None:
+        if 0 <= fila < self.__cantFilas and 0 <= columna < self.__cantColumnas:
+            self.__matriz[fila][columna] = valor
+    
     def __eq__(self, value):
         if not isinstance(value, Matriz):
             return NotImplemented
