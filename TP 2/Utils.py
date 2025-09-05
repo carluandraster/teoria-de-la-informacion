@@ -54,3 +54,12 @@ def estadosEstables(matriz: Matriz[float]) -> Matriz[float]:
     b.set(n-1, 0, 1.0)
 
     return A.inversa * b
+
+# Devuelve la entropía de una fuenta markoviana
+def entropiaMarkoviana(matriz: Matriz[float]) -> float:
+    estados = estadosEstables(matriz)
+    H = 0
+    for i in range(matriz.cantidadFilas):
+        fila = matriz.getFila(i)
+        H += estados.get(i, 0) * entropia(fila)
+    return H
