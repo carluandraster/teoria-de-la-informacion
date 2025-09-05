@@ -25,12 +25,29 @@ class Matriz(Generic[T]):
             return self.__matriz[fila][columna]
         return None
     
+    def __eq__(self, value):
+        if not isinstance(value, Matriz):
+            return NotImplemented
+        return (self.__cantFilas, self.__cantColumnas, self.__matriz) == (value.__cantFilas, value.__cantColumnas, value.__matriz)
+
+    def __ne__(self, otro: 'Matriz[T]') -> bool:
+        return not self == otro
+    
     def __add__(self, other: 'Matriz[T]') -> 'Matriz[T]':
         if self.__cantFilas != other.__cantFilas or self.__cantColumnas != other.__cantColumnas:
             raise ValueError("Las matrices deben tener las mismas dimensiones para sumarse.")
         
         resultado = [[self.__matriz[i][j] + other.__matriz[i][j] for j in range(self.__cantColumnas)] for i in range(self.__cantFilas)]
         return Matriz(self.__cantFilas, self.__cantColumnas, resultado)
+    
+    def __iadd__(self, other: 'Matriz[T]') -> 'Matriz[T]':
+        if self.__cantFilas != other.__cantFilas or self.__cantColumnas != other.__cantColumnas:
+            raise ValueError("Las matrices deben tener las mismas dimensiones para sumarse.")
+        
+        for i in range(self.__cantFilas):
+            for j in range(self.__cantColumnas):
+                self.__matriz[i][j] += other.__matriz[i][j]
+        return self
     
     def __sub__(self, other: 'Matriz[T]') -> 'Matriz[T]':
         if self.__cantFilas != other.__cantFilas or self.__cantColumnas != other.__cantColumnas:
@@ -39,12 +56,25 @@ class Matriz(Generic[T]):
         resultado = [[self.__matriz[i][j] - other.__matriz[i][j] for j in range(self.__cantColumnas)] for i in range(self.__cantFilas)]
         return Matriz(self.__cantFilas, self.__cantColumnas, resultado)
     
+    def __isub__(self, other: 'Matriz[T]') -> 'Matriz[T]':
+        if self.__cantFilas != other.__cantFilas or self.__cantColumnas != other.__cantColumnas:
+            raise ValueError("Las matrices deben tener las mismas dimensiones para restarse.")
+        
+        for i in range(self.__cantFilas):
+            for j in range(self.__cantColumnas):
+                self.__matriz[i][j] -= other.__matriz[i][j]
+        return self
+    
     def __mul__(self, other: 'Matriz[T]') -> 'Matriz[T]':
         if self.__cantColumnas != other.__cantFilas:
             raise ValueError("El número de columnas de la primera matriz debe ser igual al número de filas de la segunda matriz para multiplicarse.")
         
         resultado = [[sum(self.__matriz[i][k] * other.__matriz[k][j] for k in range(self.__cantColumnas)) for j in range(other.__cantColumnas)] for i in range(self.__cantFilas)]
         return Matriz(self.__cantFilas, other.__cantColumnas, resultado)
+    
+    def __mul__(self, escalar: T) -> 'Matriz[T]':
+        resultado = [[self.__matriz[i][j] * escalar for j in range(self.__cantColumnas)] for i in range(self.__cantFilas)]
+        return Matriz(self.__cantFilas, self.__cantColumnas, resultado)
     
     def __str__(self) -> str:
         return '\n'.join(['\t'.join([str(self.__matriz[i][j]) if self.__matriz[i][j] is not None else 'None' for j in range(self.__cantColumnas)]) for i in range(self.__cantFilas)])
