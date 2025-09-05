@@ -90,6 +90,9 @@ class Matriz(Generic[T]):
     
     @property
     def inversa(self) -> 'Matriz[T]':
+        """
+        Calcula la matriz inversa utilizando el método de eliminación de Gauss-Jordan.
+        """
         if self.__cantFilas != self.__cantColumnas:
             raise ValueError("La matriz debe ser cuadrada para calcular su inversa.")
         
@@ -121,11 +124,25 @@ class Matriz(Generic[T]):
         return Matriz(n, n, inversa)
     
     def getFila(self, fila: int) -> list[T]:
+        """
+        Devuelve la fila especificada de la matriz.
+        Parámetros:
+            fila (int): El índice de la fila a obtener (0-indexado).
+        Lanza:
+            IndexError: Si el índice de fila está fuera de rango.
+        """
         if 0 <= fila < self.__cantFilas:
             return self.__matriz[fila]
         raise IndexError("Índice de fila fuera de rango.")
     
     def getColumna(self, columna: int) -> list[T]:
+        """
+        Devuelve la columna especificada de la matriz.
+        Parámetros:
+            columna (int): El índice de la columna a obtener (0-indexado).
+        Lanza:
+            IndexError: Si el índice de columna está fuera de rango.
+        """
         if 0 <= columna < self.__cantColumnas:
             return [self.__matriz[i][columna] for i in range(self.__cantFilas)]
         raise IndexError("Índice de columna fuera de rango.")
@@ -134,6 +151,15 @@ class Matriz(Generic[T]):
         return self.__cantFilas * self.__cantColumnas
     
     def agregarFila(self, fila: list[T]) -> None:
+        """
+        Agrega una nueva fila a la matriz.
+
+        Parámetros:
+            fila (list[T]): La fila a agregar. Debe tener el mismo número de columnas que la matriz.
+
+        Lanza:
+            ValueError: Si la longitud de la fila no coincide con el número de columnas.
+        """
         if len(fila) != self.__cantColumnas:
             raise ValueError("La fila debe tener el mismo número de columnas que la matriz.")
         self.__matriz.append(fila)
