@@ -1,4 +1,5 @@
 from Matriz import Matriz
+import MatrizFactory as mf
 
 def obtenerAlfabetoYTransiciones(mensaje: str) -> tuple[list[str], Matriz[float]]:
     """
