@@ -20,14 +20,12 @@ class Matriz(Generic[T]):
     def cantidadColumnas(self) -> int:
         return self.__cantColumnas
 
-    def get(self, fila: int, columna: int) -> T | None:
-        if 0 <= fila < self.__cantFilas and 0 <= columna < self.__cantColumnas:
-            return self.__matriz[fila][columna]
-        return None
+    def __getitem__(self, indice: int):
+        return self.__matriz[indice]
     
-    def set(self, fila: int, columna: int, valor: T) -> None:
-        if 0 <= fila < self.__cantFilas and 0 <= columna < self.__cantColumnas:
-            self.__matriz[fila][columna] = valor
+    # def set(self, fila: int, columna: int, valor: T) -> None:
+    #     if 0 <= fila < self.__cantFilas and 0 <= columna < self.__cantColumnas:
+    #         self.__matriz[fila][columna] = valor
     
     def __eq__(self, value):
         if not isinstance(value, Matriz):
@@ -132,3 +130,6 @@ class Matriz(Generic[T]):
         if 0 <= columna < self.__cantColumnas:
             return [self.__matriz[i][columna] for i in range(self.__cantFilas)]
         raise IndexError("Índice de columna fuera de rango.")
+    
+    def __len__(self) -> int:
+        return self.__cantFilas * self.__cantColumnas
