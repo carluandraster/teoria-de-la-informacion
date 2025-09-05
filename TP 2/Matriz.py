@@ -122,3 +122,13 @@ class Matriz(Generic[T]):
         
         inversa = [fila[n:] for fila in matriz_extendida]
         return Matriz(n, n, inversa)
+    
+    def getFila(self, fila: int) -> list[T]:
+        if 0 <= fila < self.__cantFilas:
+            return self.__matriz[fila]
+        raise IndexError("Índice de fila fuera de rango.")
+    
+    def getColumna(self, columna: int) -> list[T]:
+        if 0 <= columna < self.__cantColumnas:
+            return [self.__matriz[i][columna] for i in range(self.__cantFilas)]
+        raise IndexError("Índice de columna fuera de rango.")
