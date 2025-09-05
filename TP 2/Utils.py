@@ -61,5 +61,5 @@ def entropiaMarkoviana(matriz: Matriz[float]) -> float:
     H = 0
     for i in range(matriz.cantidadColumnas):
         columna = matriz.getColumna(i)
-        H += estados.get(i, 0) * entropia(columna)
+        H += estados[i][0] * entropia(columna)
     return H
