@@ -7,6 +7,9 @@ def obtenerAlfabetoYTransiciones(mensaje: str) -> tuple[list[str], Matriz[float]
     
     Parámetros:
         mensaje (str): El mensaje emitido por la fuente.
+    Precondiciones:
+        - El mensaje no debe estar vacío.
+        - El mensaje debe ser representativo de la fuente
     Retorna:
         tuple: Una tupla que contiene una lista con el alfabeto y una lista con su matriz de transiciones.
     """
