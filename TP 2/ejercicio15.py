@@ -43,14 +43,12 @@ def simularMensaje(alfabeto: list[str], transiciones: Matriz[float], longitud: i
         simbolo_inicial (str, opcional): El símbolo inicial del mensaje. Si no se proporciona, se selecciona aleatoriamente.
     Precondiciones:
         - El alfabeto no debe estar vacío.
+        - El mensaje no debe estar vacío.
+        - La matriz de transiciones no debe estar vacía.
         - La matriz de transiciones debe estar normalizada.
     Retorna:
         str: El mensaje simulado.
     """
-    if not alfabeto:
-        raise ValueError("El alfabeto no debe estar vacío.")
-    if not transiciones:
-        raise ValueError("La matriz de transiciones no debe estar vacía.")
 
     mensaje = ""
     if simbolo_inicial is None:
