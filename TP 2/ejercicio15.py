@@ -19,13 +19,9 @@ def obtenerAlfabetoYTransiciones(mensaje: str) -> tuple[list[str], Matriz[float]
         columna[alfabeto.index(mensaje[i + 1])] += 1
         transiciones.agregarColumna(columna)
 
-    # Normalizar matriz de transiciones
-    for i in range(len(transiciones)):
-        total = sum(transiciones[i])
-        if total > 0:
-            transiciones[i] = [x / total for x in transiciones[i]]
+    transiciones.normalizar()
 
-    return alfabeto, Matriz(len(transiciones), len(transiciones[0]), transiciones)
+    return alfabeto, transiciones
 
 # Test
 print(obtenerAlfabetoYTransiciones("Hola")[1])
