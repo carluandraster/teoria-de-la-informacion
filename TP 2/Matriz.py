@@ -69,16 +69,17 @@ class Matriz(Generic[T]):
                 self.__matriz[i][j] -= other.__matriz[i][j]
         return self
     
-    def __mul__(self, other: 'Matriz[T]') -> 'Matriz[T]':
-        if self.__cantColumnas != other.__cantFilas:
-            raise ValueError("El número de columnas de la primera matriz debe ser igual al número de filas de la segunda matriz para multiplicarse.")
-        
-        resultado = [[sum(self.__matriz[i][k] * other.__matriz[k][j] for k in range(self.__cantColumnas)) for j in range(other.__cantColumnas)] for i in range(self.__cantFilas)]
-        return Matriz(self.__cantFilas, other.__cantColumnas, resultado)
-    
-    def __mul__(self, escalar: T) -> 'Matriz[T]':
-        resultado = [[self.__matriz[i][j] * escalar for j in range(self.__cantColumnas)] for i in range(self.__cantFilas)]
-        return Matriz(self.__cantFilas, self.__cantColumnas, resultado)
+    def __mul__(self, other) -> 'Matriz[T]':
+        if isinstance(other, Matriz):
+            # Multiplicación de matrices
+            if self.__cantColumnas != other.__cantFilas:
+                raise ValueError("El número de columnas de la primera matriz debe ser igual al número de filas de la segunda matriz para multiplicarse.")
+            resultado = [[sum(self.__matriz[i][k] * other.__matriz[k][j] for k in range(self.__cantColumnas)) for j in range(other.__cantColumnas)] for i in range(self.__cantFilas)]
+            return Matriz(self.__cantFilas, other.__cantColumnas, resultado)
+        else:
+            # Multiplicación por escalar
+            resultado = [[self.__matriz[i][j] * other for j in range(self.__cantColumnas)] for i in range(self.__cantFilas)]
+            return Matriz(self.__cantFilas, self.__cantColumnas, resultado)
     
     def __imul__(self, otro) -> 'Matriz[T]':
         self = self * otro
