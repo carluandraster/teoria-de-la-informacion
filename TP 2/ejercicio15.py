@@ -57,8 +57,8 @@ def simularMensaje(alfabeto: list[str], transiciones: Matriz[float], longitud: i
 
     for _ in range(longitud - 1):
         simbolo_actual = mensaje[-1]
-        fila = alfabeto.index(simbolo_actual)
-        siguiente_simbolo = random.choices(alfabeto, weights=transiciones[fila])[0]
+        columna = alfabeto.index(simbolo_actual)
+        siguiente_simbolo = random.choices(alfabeto, weights=transiciones.getColumna(columna))[0]
         mensaje += siguiente_simbolo
 
     return mensaje
