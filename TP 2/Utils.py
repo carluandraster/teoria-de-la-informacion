@@ -48,10 +48,10 @@ def estadosEstables(matriz: Matriz[float]) -> Matriz[float]:
     A = matriz - mf.identidad(n)
 
     for j in range(n):
-        A.set(n-1, j, 1.0)
-    
+        A[n-1, j] = 1.0
+
     b = mf.ceros(n, 1)
-    b.set(n-1, 0, 1.0)
+    b[n-1, 0] = 1.0
 
     return A.inversa * b
 
