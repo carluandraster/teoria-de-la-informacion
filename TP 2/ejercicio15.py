@@ -4,7 +4,6 @@ from Matriz import Matriz
 # devuelve una lista con su alfabeto y su matriz de transiciones de primer orden.
 def obtenerAlfabetoYTransiciones(mensaje: str) -> tuple[list[str], Matriz[float]]:
     alfabeto = []
-    transiciones = []
     longitud = len(mensaje)
 
     # Obtener alfabeto
@@ -12,11 +11,13 @@ def obtenerAlfabetoYTransiciones(mensaje: str) -> tuple[list[str], Matriz[float]
         if simbolo not in alfabeto:
             alfabeto.append(simbolo)
 
+    transiciones = Matriz(len(alfabeto), 0, [])
+
     # Obtener matriz de transiciones
     for i in range(longitud - 1):
-        fila = [0] * len(alfabeto)
-        fila[alfabeto.index(mensaje[i + 1])] += 1
-        transiciones.append(fila)
+        columna = [0] * len(alfabeto)
+        columna[alfabeto.index(mensaje[i + 1])] += 1
+        transiciones.agregarColumna(columna)
 
     # Normalizar matriz de transiciones
     for i in range(len(transiciones)):
