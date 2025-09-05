@@ -18,13 +18,11 @@ def obtenerAlfabetoYTransiciones(mensaje: str) -> tuple[list[str], Matriz[float]
         if simbolo not in alfabeto:
             alfabeto.append(simbolo)
 
-    transiciones = Matriz(len(alfabeto), 0, [])
+    transiciones = mf.ceros(len(alfabeto), len(alfabeto))
 
     # Obtener matriz de transiciones
     for i in range(longitud - 1):
-        columna = [0] * len(alfabeto)
-        columna[alfabeto.index(mensaje[i + 1])] += 1
-        transiciones.agregarColumna(columna)
+        transiciones[alfabeto.index(mensaje[i+1])][alfabeto.index(mensaje[i])] += 1
 
     transiciones.normalizar()
 
