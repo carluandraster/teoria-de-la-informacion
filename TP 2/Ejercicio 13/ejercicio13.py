@@ -13,3 +13,6 @@ print(M)
 
 print("Inciso b)")
 print(Utils.estadosEstables(M))
+
+print("Inciso c)")
+print(Utils.entropiaMarkoviana(M), " bits")
