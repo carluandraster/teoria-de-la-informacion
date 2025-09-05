@@ -9,9 +9,9 @@ CADENA_B = "BBAAACCAAABCCCAACCCBBACCAABBAA"
 def resolver_inciso(cadena: str) -> None:
     alfabeto, matriz_de_transiciones = ej15.obtenerAlfabetoYTransiciones(cadena)
     if ej15.esFuenteDeMemoriaNula(matriz_de_transiciones):
-        print("La cadena es fuente de memoria nula.")
+        print("La cadena proviene de una fuente de memoria nula.")
     else:
-        print("La cadena no es fuente de memoria nula.")
+        print("La cadena proviene de una fuente con memoria.")
     print("Entropía de la fuente: ", ej14.entropiaMarkoviana(matriz_de_transiciones), " bits")
 
 # Programa principal
