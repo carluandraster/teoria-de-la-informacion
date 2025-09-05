@@ -132,3 +132,16 @@ class Matriz(Generic[T]):
     
     def __len__(self) -> int:
         return self.__cantFilas * self.__cantColumnas
+    
+    def agregarFila(self, fila: list[T]) -> None:
+        if len(fila) != self.__cantColumnas:
+            raise ValueError("La fila debe tener el mismo número de columnas que la matriz.")
+        self.__matriz.append(fila)
+        self.__cantFilas += 1
+    
+    def agregarColumna(self, columna: list[T]) -> None:
+        if len(columna) != self.__cantFilas:
+            raise ValueError("La columna debe tener el mismo número de filas que la matriz.")
+        for i in range(self.__cantFilas):
+            self.__matriz[i].append(columna[i])
+        self.__cantColumnas += 1
