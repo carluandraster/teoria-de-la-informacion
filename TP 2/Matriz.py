@@ -166,15 +166,27 @@ class Matriz(Generic[T]):
         self.__cantFilas += 1
     
     def agregarColumna(self, columna: list[T]) -> None:
+        """
+        Agrega una nueva columna a la matriz.
+
+        Parámetros:
+            columna (list[T]): La columna a agregar. Debe tener el mismo número de filas que la matriz.
+
+        Lanza:
+            ValueError: Si la longitud de la columna no coincide con el número de filas.
+        """
         if len(columna) != self.__cantFilas:
             raise ValueError("La columna debe tener el mismo número de filas que la matriz.")
         for i in range(self.__cantFilas):
             self.__matriz[i].append(columna[i])
         self.__cantColumnas += 1
 
-    # Normaliza la matriz a lo largo del eje especificado
-    # (True para filas, False para columnas)
     def normalizar(self, axis = False) -> None:
+        """
+        Normaliza la matriz a lo largo del eje especificado.
+        Parámetros:
+            axis (bool): Si es True, normaliza por filas. Si es False, normaliza por columnas.
+        """
         if axis:
             for i in range(self.__cantFilas):
                 total = sum(self.__matriz[i])
