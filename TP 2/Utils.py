@@ -41,10 +41,10 @@ def getAlfaProbabilidades(texto: str):
 
 # Función que, a partir de una matriz de transición, devuelve la matriz de estados estables
 def estadosEstables(matriz: Matriz[float]) -> Matriz[float]:
-    if matriz.cantFilas != matriz.cantColumnas:
+    if matriz.cantidadFilas != matriz.cantidadColumnas:
         raise ValueError("La matriz debe ser cuadrada para calcular los estados estables.")
-    
-    n = matriz.cantFilas
+
+    n = matriz.cantidadFilas
     A = matriz - mf.identidad(n)
 
     for j in range(n):
