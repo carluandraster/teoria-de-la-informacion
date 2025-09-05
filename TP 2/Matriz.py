@@ -23,9 +23,8 @@ class Matriz(Generic[T]):
     def __getitem__(self, indice: int):
         return self.__matriz[indice]
     
-    # def set(self, fila: int, columna: int, valor: T) -> None:
-    #     if 0 <= fila < self.__cantFilas and 0 <= columna < self.__cantColumnas:
-    #         self.__matriz[fila][columna] = valor
+    def __setitem__(self, key, value):
+        self.__matriz[key] = value
     
     def __eq__(self, value):
         if not isinstance(value, Matriz):
