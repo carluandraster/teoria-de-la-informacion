@@ -58,7 +58,7 @@ def esUnivocamenteDecodificable(codigo: list) -> bool:
                 else:
                     if y.startswith(x) and x != y:
                         S[i+1].add(y[len(x):])
-        if codigo.intersection(S[i+1]) != set(): # Si la intersección no es vacía, no es unívocamente decodificable
+        if S[0].intersection(S[i+1]) != set(): # Si la intersección no es vacía, no es unívocamente decodificable
             respuesta = False
             seguir = False
         else:
