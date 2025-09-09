@@ -36,15 +36,15 @@ def esUnivocamenteDecodificable(codigo: set) -> bool:
         for x in S[0]:
             for y in S[i]:
                 if x.startswith(y) and x != y:
-                    S[i].add(x[len(y):])
-        if codigo.intersection(S[i]) != set(): # Si la intersección no es vacía, no es unívocamente decodificable
+                    S[i+1].add(x[len(y):])
+                else:
+                    if y.startswith(x) and x != y:
+                        S[i+1].add(y[len(x):])
+        if codigo.intersection(S[i+1]) != set(): # Si la intersección no es vacía, no es unívocamente decodificable
             respuesta = False
             seguir = False
         else:
-            j = 0
-            while j <= i and S[j] != S[i]:
-                j += 1
-            if S[i] == set() or S[i] == S[j]:
+            if S[i+1] == set() or S[i+1] in S[0:i+1]:
                 respuesta = True
                 seguir = False
             else:
@@ -73,7 +73,7 @@ def seleccionar(codigo: set) -> str:
         return "no unívocamente decodificable"
 
 CODIGO_1 = {"010", "101", "000", "111"}
-CODIGO_2 = {"111", "000", "11", "00"}
+CODIGO_2 = {"110", "001", "11", "00"}
 
-print("Codigo 1 es ", seleccionar(CODIGO_1))
-print("Codigo 2 es ", seleccionar(CODIGO_2))
+print("Codigo 1 es", seleccionar(CODIGO_1))
+print("Codigo 2 es", seleccionar(CODIGO_2))
