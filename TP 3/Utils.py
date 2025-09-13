@@ -1,5 +1,11 @@
 import ejercicio6 as ej6
 
+# Constantes
+INSTANTANEO = "instantáneo"
+UNIVOCO = "unívoco"
+NO_SINGULAR = "no singular"
+BLOQUE = "bloque"
+
 def clasificar(codigo: list) -> str:
     """
     Clasifica un código
@@ -18,11 +24,11 @@ def clasificar(codigo: list) -> str:
     """
     if ej6.esNoSingular(codigo):
         if ej6.esInstantaneo(codigo):
-            return "instantáneo"
+            return INSTANTANEO
         else:
             if ej6.esUnivocamenteDecodificable(codigo):
-                return "unívoco"
+                return UNIVOCO
             else:
-                return "no singular"
+                return NO_SINGULAR
     else:
-        return "bloque"
+        return BLOQUE
