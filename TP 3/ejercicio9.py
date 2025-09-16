@@ -19,3 +19,6 @@ def get_cadena_caracteres(codigos: list[str])->str:
     for i in range(n):
         resultado += codigos[math.floor(math.random()*len(codigos))]
     return resultado
+
+def get_longitudes(codigos: list[str])->str:
+    return [len(codigo) for codigo in codigos]
