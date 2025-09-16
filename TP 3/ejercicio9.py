@@ -22,3 +22,5 @@ def get_cadena_caracteres(codigos: list[str])->str:
 
 def get_longitudes(codigos: list[str])->str:
     return [len(codigo) for codigo in codigos]
+
+def sumatoria_de_kraft
