@@ -38,6 +38,18 @@ def get_longitudes(codigos: list[str])->list[int]:
     return [len(codigo) for codigo in codigos]
 
 def sumatoria_de_kraft(C: list[str])->float:
+    """"
+    Dada una lista que contiene las palabras código de una codificación, calcula la sumatoria de la inecuación de Kraft.
+
+    Parámetros:
+        - C: list[str] - Lista de palabras código.
+    
+    Retorna: (float) valor de la sumatoria de la inecuación de Kraft.
+    
+    Contrato:
+        - Precondición: C debe ser una lista de cadenas no vacías y distinta de None.
+        - Postcondición: El resultado es un número flotante que representa la sumatoria de la inecuación de Kraft para las palabras código proporcionadas.
+    """
     r = len(C)
     L = get_longitudes(C)
     sumatoria = 0
