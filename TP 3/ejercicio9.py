@@ -48,7 +48,7 @@ def sumatoria_de_kraft(C: list[str])->float:
         - Precondición: C debe ser una lista de cadenas no vacías y distinta de None.
         - Postcondición: El resultado es un número flotante que representa la sumatoria de la inecuación de Kraft para las palabras código proporcionadas.
     """
-    r = len(C)
+    r = len(get_alfabeto_codigo(C))
     L = get_longitudes(C)
     sumatoria = 0.0
     for l_i in L:
