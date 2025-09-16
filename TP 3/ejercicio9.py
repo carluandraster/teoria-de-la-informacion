@@ -50,7 +50,7 @@ def sumatoria_de_kraft(C: list[str])->float:
     """
     r = len(C)
     L = get_longitudes(C)
-    sumatoria = 0
+    sumatoria = 0.0
     for l_i in L:
         sumatoria += r ** -l_i
     return sumatoria
