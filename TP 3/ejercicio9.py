@@ -1,6 +1,6 @@
 import math
 
-def get_alfbeto_codigo(C: list[str])->str:
+def get_alfabeto_codigo(C: list[str])->str:
     """
     Dada una lista que contiene las palabras código de una codificación, obtiene una cadena de caracteres con el alfabeto código.
 
@@ -51,7 +51,7 @@ def sumatoria_de_kraft(C: list[str])->float:
         - Postcondición: El resultado es un número flotante que representa la sumatoria de la inecuación de Kraft para las palabras código proporcionadas.
     """
     r = len(C)
-    L = get_longitudes(C)
+    L = get_longitudes(get_alfabeto_codigo(C))
     sumatoria = 0
     for l_i in L:
         sumatoria += r ** -l_i
