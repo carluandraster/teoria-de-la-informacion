@@ -1,5 +1,3 @@
-import math
-
 def get_alfabeto_codigo(C: list[str])->str:
     """
     Dada una lista que contiene las palabras código de una codificación, obtiene una cadena de caracteres con el alfabeto código.
