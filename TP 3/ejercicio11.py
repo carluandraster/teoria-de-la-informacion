@@ -20,6 +20,12 @@ def entropia_de_la_fuente(probabilidades: list[float], r: int)->float:
         - probabilidades (list[float]): Lista de probabilidades de los símbolos de la fuente.
     
     Retorna: un float que representa la entropía de la fuente.
+    
+    Contrato:
+        - sum(probabilidades) == 1
+        - all(p >= 0 and p<=1 for p in probabilidades)
+        - r > 1 (base del logaritmo)
+        - len(probabilidades) > 0
     """
     return Utils.entropia(probabilidades, r)
 
