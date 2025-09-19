@@ -39,7 +39,7 @@ def get_longitud_media(palabras_codigo: list[str], probabilidades: list[float])-
         - all(p >= 0 and p<=1 for p in probabilidades)
     """
     longitudes = ej9.get_longitudes(palabras_codigo)
-    L = 0
+    longitud_media = 0
     for p_i, l_i in zip(probabilidades, longitudes):
-        L += p_i * l_i
-    return L
+        longitud_media += p_i * l_i
+    return longitud_media
