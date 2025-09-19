@@ -10,8 +10,7 @@ CODIGO4  = [".,", ";", ",,", ":", "...", ",:;"]
 
 # Funciones
 def get_respuesta(codigo, probabilidades):
-    r = len(ej9.get_alfabeto_codigo(codigo))
-    return f'''H(S) = {ej11.entropia_de_la_fuente(probabilidades, r)}\nL = {ej11.get_longitud_media(codigo, probabilidades)}'''
+    return f'''H(S) = {ej11.entropia_de_la_fuente(codigo, probabilidades)}\nL = {ej11.get_longitud_media(codigo, probabilidades)}'''
 
 print("Codigo 1\n", get_respuesta(CODIGO1, PROBABILIDADES), "\n", sep="")
 print("Codigo 2\n", get_respuesta(CODIGO2, PROBABILIDADES), "\n", sep="")

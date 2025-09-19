@@ -12,12 +12,13 @@ Utils = importlib.util.module_from_spec(spec)
 sys.modules["Utils"] = Utils
 spec.loader.exec_module(Utils)
 
-def entropia_de_la_fuente(probabilidades: list[float], r = 2)->float:
+def entropia_de_la_fuente(codigos: list[str], probabilidades: list[float])->float:
     """
-    Calcula la entropía de una fuente de información dada su distribución de probabilidades.
+    Calcula la entropía de una fuente de información dada su distribución de probabilidades y su abecedario.
 
     Parámetros:
         - probabilidades (list[float]): Lista de probabilidades de los símbolos de la fuente.
+        - codigos (list[str]): Lista de palabras código.
     
     Retorna: un float que representa la entropía de la fuente.
     
@@ -26,8 +27,9 @@ def entropia_de_la_fuente(probabilidades: list[float], r = 2)->float:
         - all(p >= 0 and p<=1 for p in probabilidades)
         - r > 1 (base del logaritmo)
         - len(probabilidades) > 0
+        - len(codigos) > 0
     """
-    return Utils.entropia(probabilidades, r)
+    return Utils.entropia(probabilidades, len(ej9.get_alfabeto_codigo(codigos)))
 
 def get_longitud_media(palabras_codigo: list[str], probabilidades: list[float])->float:
     """
