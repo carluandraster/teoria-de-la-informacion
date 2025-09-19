@@ -12,7 +12,7 @@ Utils = importlib.util.module_from_spec(spec)
 sys.modules["Utils"] = Utils
 spec.loader.exec_module(Utils)
 
-def entropia_de_la_fuente(probabilidades: list[float], r: int)->float:
+def entropia_de_la_fuente(probabilidades: list[float], r = 2)->float:
     """
     Calcula la entropía de una fuente de información dada su distribución de probabilidades.
 
