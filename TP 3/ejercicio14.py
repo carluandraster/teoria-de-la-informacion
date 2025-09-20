@@ -1,4 +1,5 @@
 import math
+from ejercicio5 import esInstantaneo
 from ejercicio9 import get_alfabeto_codigo, get_longitudes
 
 def es_codigo_compacto(codigos: list[str], probabilidades: list[float]) -> bool:
@@ -23,13 +24,16 @@ def es_codigo_compacto(codigos: list[str], probabilidades: list[float]) -> bool:
         - todas las probabilidades son mayores que 0 y menores o iguales a 1
         - la suma de todas las probabilidades es igual a 1
     """
-    R = len(get_alfabeto_codigo(codigos))
-    LONGITUDES = get_longitudes(codigos)
-    i = 0
-    respuesta = True
-    while i < len(codigos) and respuesta:
-        limite_superior = math.ceil(-math.log(probabilidades[i], R))
-        if LONGITUDES[i] > limite_superior:
-            respuesta = False
-        i += 1
+    if esInstantaneo(codigos):
+        R = len(get_alfabeto_codigo(codigos))
+        LONGITUDES = get_longitudes(codigos)
+        i = 0
+        respuesta = True
+        while i < len(codigos) and respuesta:
+            limite_superior = math.ceil(-math.log(probabilidades[i], R))
+            if LONGITUDES[i] > limite_superior:
+                respuesta = False
+            i += 1
+    else:
+        respuesta = False
     return respuesta
