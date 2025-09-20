@@ -1,5 +1,5 @@
 import math
-from ejercicio5 import esInstantaneo
+from ejercicio6 import esInstantaneo
 from ejercicio9 import get_alfabeto_codigo, get_longitudes
 
 def es_codigo_compacto(codigos: list[str], probabilidades: list[float]) -> bool:
