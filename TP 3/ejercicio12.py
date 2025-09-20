@@ -1,4 +1,3 @@
-import ejercicio9 as ej9
 import ejercicio11 as ej11
 
 # Constantes
