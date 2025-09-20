@@ -1,5 +1,5 @@
 import math
-from ejercicio9 import get_alfabeto_codigo
+from ejercicio9 import get_alfabeto_codigo, get_longitudes
 
 def es_codigo_compacto(codigos: list[str], probabilidades: list[float]) -> bool:
     """
@@ -24,12 +24,12 @@ def es_codigo_compacto(codigos: list[str], probabilidades: list[float]) -> bool:
         - la suma de todas las probabilidades es igual a 1
     """
     r = len(get_alfabeto_codigo(codigos))
+    longitudes = get_longitudes(codigos)
     i = 0
     respuesta = True
     while i < len(codigos) and respuesta:
-        longitud_codigo = len(codigos[i])
         limite_superior = math.ceil(-math.log(probabilidades[i], r))
-        if longitud_codigo > limite_superior:
+        if longitudes[i] > limite_superior:
             respuesta = False
         i += 1
     return respuesta
