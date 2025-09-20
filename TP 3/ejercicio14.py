@@ -24,9 +24,12 @@ def es_codigo_compacto(codigos: list[str], probabilidades: list[float]) -> bool:
         - la suma de todas las probabilidades es igual a 1
     """
     r = len(get_alfabeto_codigo(codigos))
-    for codigo, probabilidad in zip(codigos, probabilidades):
-        longitud_codigo = len(codigo)
-        limite_superior = math.ceil(-math.log(probabilidad, r))
+    i = 0
+    respuesta = True
+    while i < len(codigos) and respuesta:
+        longitud_codigo = len(codigos[i])
+        limite_superior = math.ceil(-math.log(probabilidades[i], r))
         if longitud_codigo > limite_superior:
-            return False
-    return True
+            respuesta = False
+        i += 1
+    return respuesta
