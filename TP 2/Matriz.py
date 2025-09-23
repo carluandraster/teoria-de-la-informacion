@@ -8,10 +8,21 @@ class Matriz(Generic[T]):
     __cantColumnas: int
     __matriz: list[list[T]]
 
-    def __init__(self, filas: int, columnas: int, valores: list[list[T]]) -> None:
-        self.__cantFilas = filas
-        self.__cantColumnas = columnas
-        self.__matriz = [[valores[i][j] if i < len(valores) and j < len(valores[i]) else None for j in range(columnas)] for i in range(filas)]
+    def __init__(self, valores: list[list[T]]):
+        """
+        Constructor de la clase Matriz.
+
+        Parámetros:
+            - valores (list[list[T]]): Una lista de listas que representa los valores iniciales de la matriz.
+        
+        Contrato:
+            - len(valores) > 0
+            - all(len(fila) == len(valores[0]) for fila in valores)
+            - Contruye una matriz con las dimensiones dadas y llena con los valores proporcionados.
+        """
+        self.__cantFilas = len(valores)
+        self.__cantColumnas = len(valores[0])
+        self.__matriz = [[valores[i][j] if i < len(valores) and j < len(valores[i]) else None for j in range(self.__cantColumnas)] for i in range(self.__cantFilas)]
 
     @property
     def cantidadFilas(self) -> int:
@@ -23,12 +34,10 @@ class Matriz(Generic[T]):
     def __getitem__(self, indice: int):
         return self.__matriz[indice]
     
-    def __setitem__(self, key, value):
+    def __setitem__(self, key: int, value: T):
         self.__matriz[key] = value
     
-    def __eq__(self, value):
-        if not isinstance(value, Matriz):
-            return NotImplemented
+    def __eq__(self, value: 'Matriz[T]') -> bool:
         return (self.__cantFilas, self.__cantColumnas, self.__matriz) == (value.__cantFilas, value.__cantColumnas, value.__matriz)
 
     def __ne__(self, otro: 'Matriz[T]') -> bool:
@@ -39,7 +48,7 @@ class Matriz(Generic[T]):
             raise ValueError("Las matrices deben tener las mismas dimensiones para sumarse.")
         
         resultado = [[self.__matriz[i][j] + other.__matriz[i][j] for j in range(self.__cantColumnas)] for i in range(self.__cantFilas)]
-        return Matriz(self.__cantFilas, self.__cantColumnas, resultado)
+        return Matriz(resultado)
     
     def __iadd__(self, other: 'Matriz[T]') -> 'Matriz[T]':
         if self.__cantFilas != other.__cantFilas or self.__cantColumnas != other.__cantColumnas:
@@ -55,7 +64,7 @@ class Matriz(Generic[T]):
             raise ValueError("Las matrices deben tener las mismas dimensiones para restarse.")
         
         resultado = [[self.__matriz[i][j] - other.__matriz[i][j] for j in range(self.__cantColumnas)] for i in range(self.__cantFilas)]
-        return Matriz(self.__cantFilas, self.__cantColumnas, resultado)
+        return Matriz(resultado)
     
     def __isub__(self, other: 'Matriz[T]') -> 'Matriz[T]':
         if self.__cantFilas != other.__cantFilas or self.__cantColumnas != other.__cantColumnas:
@@ -72,11 +81,11 @@ class Matriz(Generic[T]):
             if self.__cantColumnas != other.__cantFilas:
                 raise ValueError("El número de columnas de la primera matriz debe ser igual al número de filas de la segunda matriz para multiplicarse.")
             resultado = [[sum(self.__matriz[i][k] * other.__matriz[k][j] for k in range(self.__cantColumnas)) for j in range(other.__cantColumnas)] for i in range(self.__cantFilas)]
-            return Matriz(self.__cantFilas, other.__cantColumnas, resultado)
+            return Matriz(resultado)
         else:
             # Multiplicación por escalar
             resultado = [[self.__matriz[i][j] * other for j in range(self.__cantColumnas)] for i in range(self.__cantFilas)]
-            return Matriz(self.__cantFilas, self.__cantColumnas, resultado)
+            return Matriz(resultado)
     
     def __imul__(self, otro) -> 'Matriz[T]':
         self = self * otro
@@ -92,6 +101,12 @@ class Matriz(Generic[T]):
     def inversa(self) -> 'Matriz[T]':
         """
         Calcula la matriz inversa utilizando el método de eliminación de Gauss-Jordan.
+
+        Retorna:
+            Matriz[T]: La matriz inversa si es invertible.
+        
+        Lanza:
+            ValueError: Si la matriz no es cuadrada o no es invertible.
         """
         if self.__cantFilas != self.__cantColumnas:
             raise ValueError("La matriz debe ser cuadrada para calcular su inversa.")
@@ -121,7 +136,7 @@ class Matriz(Generic[T]):
                         matriz_extendida[k][j] -= factor * matriz_extendida[i][j]
         
         inversa = [fila[n:] for fila in matriz_extendida]
-        return Matriz(n, n, inversa)
+        return Matriz(inversa)
     
     def getFila(self, fila: int) -> list[T]:
         """
