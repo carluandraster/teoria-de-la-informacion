@@ -41,8 +41,8 @@ def entropiaMarkoviana(matriz: Matriz[float]) -> float:
     if matriz.cantidadFilas != matriz.cantidadColumnas:
         raise ValueError("La matriz debe ser cuadrada para calcular la entropía markoviana.")
     estados = estadosEstables(matriz)
-    H = 0
+    h = 0
     for i in range(matriz.cantidadColumnas):
         columna = matriz.getColumna(i)
-        H += estados[i][0] * Utils.entropia(columna)
-    return H
+        h += estados[i][0] * Utils.entropia(columna)
+    return h
