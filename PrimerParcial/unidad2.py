@@ -19,6 +19,24 @@ def cantidadInformacion(p: float, r=2) -> float:
         resultado = math.log(1/p, r)
     return resultado
 
+def get_informaciones(probabilidades: list, r=2) -> list:
+    """
+    Dada una lista de probabilidades, devuelve una lista con las cantidades de información correspondientes.
+
+    Parámetros:
+        - probabilidades (list): Lista de probabilidades de los eventos.
+        - r (int): Base del logaritmo (default 2).
+    
+    Retorna: list(float): Lista de cantidades de información correspondientes a las probabilidades dadas.
+
+    Contrato:
+        - probabilidades != None
+        - len(probabilidades) > 0
+        - sum(probabilidades) == 1
+        - r > 1
+    """
+    return [cantidadInformacion(p, r) for p in probabilidades]
+
 def entropia(probabilidades: list, r=2) -> float:
     """
     Calcula la entropía de una fuente de información dada una lista de probabilidades.
