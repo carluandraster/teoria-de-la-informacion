@@ -32,7 +32,7 @@ def obtenerAlfabetoYTransiciones(mensaje: str) -> tuple[list[str], Matriz[float]
 
     return alfabeto, transiciones
 
-def simularMensaje(alfabeto: list[str], transiciones: Matriz[float], longitud: int, simbolo_inicial: str = None) -> str:
+def simularMensaje(alfabeto: list[str], transiciones: Matriz[float], longitud: int, simbolo_inicial: str = "") -> str:
     """
     Simula un mensaje emitido por una fuente de primer orden.
     
@@ -51,7 +51,7 @@ def simularMensaje(alfabeto: list[str], transiciones: Matriz[float], longitud: i
     """
 
     mensaje = ""
-    if simbolo_inicial is None:
+    if simbolo_inicial == "":
         simbolo_inicial = random.choice(alfabeto)
     mensaje += simbolo_inicial
 
