@@ -5,7 +5,7 @@ def simular_fuente(codigos: list[str], probabilidades: list[float], n: int) -> l
     Simula la salida de una fuente de información discreta.
 
     Parameteros:
-        - codigos: lista de símbolos del alfabeto.
+        - codigos: lista de símbolos del código.
         - probabilidades: lista de probabilidades asociadas a cada símbolo.
         - n: cantidad de símbolos a simular.
     
