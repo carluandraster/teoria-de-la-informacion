@@ -1,4 +1,5 @@
 import math
+import random
 from Matriz import Matriz
 
 def cantidadInformacion(p: float, r=2) -> float:
@@ -54,3 +55,31 @@ def getAlfaProbabilidades(texto: str):
     for i in range(len(probabilidades)):
         probabilidades[i] /= longitud
     return alfabeto, probabilidades
+
+def monte_carlo(alfabeto: list, probabilidades_acumuladas: list, n: int) -> list:
+    """
+    Genera una simulación de Monte Carlo basada en un alfabeto y sus probabilidades acumuladas.
+
+    Parámetros:
+        - alfabeto (list): Lista de símbolos del alfabeto.
+        - probabilidades_acumuladas (list): Lista de probabilidades acumuladas correspondientes a los símbolos del alfabeto.
+        - n (int): Número de símbolos a generar en la simulación.
+    
+    Retorna: lista de símbolos generados en la simulación.
+
+    Contrato:
+        - alfabeto es una lista no vacía de símbolos y es distinta de None.
+        - probabilidades_acumuladas es una lista no vacía de números en el rango [0, 1] y es distinta de None.
+        - n es un entero positivo y es distinto de None.
+        - len(alfabeto) == len(probabilidades_acumuladas)
+        - probabilidades_acumuladas está ordenada en forma no decreciente.
+        - La lista que se retorna solo tiene símbolos que están en alfabeto.
+    """
+    simulacion = []
+    for _ in range(n):
+        r = random.random()
+        for i, p_acum in enumerate(probabilidades_acumuladas):
+            if r <= p_acum:
+                simulacion.append(alfabeto[i])
+                break
+    return simulacion
