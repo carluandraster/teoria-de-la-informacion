@@ -6,9 +6,9 @@ import ejercicio14 as ej14
 from Matriz import Matriz
 
 print("Inciso a)")
-M = Matriz(3,3, [[0.5, 1/3, 0],
-                 [0.5, 1/3, 1],
-                 [0,   1/3, 0]])
+M = Matriz([[0.5, 1/3, 0],
+            [0.5, 1/3, 1],
+            [0,   1/3, 0]])
 print(M)
 
 print("Inciso b)")
