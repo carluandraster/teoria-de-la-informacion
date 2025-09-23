@@ -102,3 +102,17 @@ def monte_carlo(alfabeto: list, probabilidades_acumuladas: list, n: int) -> list
                 simulacion.append(alfabeto[i])
                 break
     return simulacion
+
+def entropiaBinaria(omega: float) -> float:
+    """
+    Calcula la entropía de una fuente binaria de memoria nula.
+    
+    Parámetros:
+        - omega (float): probabilidad del símbolo 0
+    
+    Retorna: (float) entropía de la fuente binaria
+
+    Contrato:
+        - 0 <= omega <= 1
+    """
+    return entropia([omega, 1 - omega])
