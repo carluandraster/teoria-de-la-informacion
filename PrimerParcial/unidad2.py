@@ -2,6 +2,7 @@ import math
 import random
 from Matriz import Matriz
 from typing import List, Tuple
+import MatrizFactory as mf
 
 def cantidadInformacion(p: float, r=2) -> float:
     """
@@ -116,3 +117,176 @@ def entropiaBinaria(omega: float) -> float:
         - 0 <= omega <= 1
     """
     return entropia([omega, 1 - omega])
+
+# Función auxiliar para la función generarConExtension
+def generar_combinaciones(alfabeto: list, N: int) -> list:
+    """Genera todas las combinaciones posibles de longitud N
+    a partir del alfabeto dado.
+    
+    Parametros:
+        alfabeto (list): lista de elementos del alfabeto
+        N (int): longitud de las combinaciones a generar
+    Retorna:
+        list: lista de combinaciones generadas
+    """
+    if N == 1:
+        return [[letra] for letra in alfabeto]
+    else:
+        combinaciones_previas = generar_combinaciones(alfabeto, N - 1)
+        nuevas_combinaciones = []
+        for combinacion in combinaciones_previas:
+            for letra in alfabeto:
+                nuevas_combinaciones.append(combinacion + [letra])
+        return nuevas_combinaciones
+
+def generarConExtension(alfabeto: list, probabilidades: list[float], N: int):
+    """Genera el alfabeto y la distribución de probabilidades
+    de una fuente con extensión de orden N.
+    
+    Parámetros:
+        alfabeto (list): lista de elementos del alfabeto
+        probabilidades (list[float]): lista de probabilidades de cada elemento del alfabeto
+        N (int): orden de la extensión
+    Retorna:
+        tuple: (nuevas_letras, nuevas_probabilidades)
+    """
+    if N <= 0:
+        return [], []
+
+    # Generar las combinaciones de longitud N
+    combinaciones = generar_combinaciones(alfabeto, N)
+
+    # Calcular las probabilidades de cada combinación
+    nuevas_probabilidades = []
+    for combinacion in combinaciones:
+        probabilidad = 1.0
+        for letra in combinacion:
+            indice = alfabeto.index(letra)
+            probabilidad *= probabilidades[indice]
+        nuevas_probabilidades.append(probabilidad)
+
+    # Convertir las combinaciones de listas de letras a cadenas
+    nuevas_letras = [''.join(str(combinacion)) for combinacion in combinaciones]
+
+    return nuevas_letras, nuevas_probabilidades
+
+def estadosEstables(matriz: Matriz[float]) -> Matriz[float]:
+    """
+    Calcula la matriz de estados estables de una cadena de Markov dada su matriz de transición.
+    
+    Parámetros:
+        matriz (Matriz[float]): La matriz de transición de la cadena de Markov.
+    Retorna:
+        Matriz[float]: La matriz de estados estables.
+    Lanza:
+        ValueError: Si la matriz no es cuadrada.
+    """
+    if matriz.cantidadFilas != matriz.cantidadColumnas:
+        raise ValueError("La matriz debe ser cuadrada para calcular los estados estables.")
+
+    n = matriz.cantidadFilas
+    A = matriz - mf.identidad(n)
+
+    for j in range(n):
+        A[n-1][j] = 1.0
+
+    b = mf.ceros(n, 1)
+    b[n-1][0] = 1.0
+
+    return A.inversa * b
+
+def entropiaMarkoviana(matriz: Matriz[float]) -> float:
+    """
+    Calcula la entropía markoviana de una cadena de Markov dada su matriz de transición.
+    
+    Parámetros:
+        matriz (Matriz[float]): La matriz de transición de la cadena de Markov.
+    Retorna:
+        float: La entropía markoviana.
+    Lanza:
+        ValueError: Si la matriz no es cuadrada.
+    """
+    if matriz.cantidadFilas != matriz.cantidadColumnas:
+        raise ValueError("La matriz debe ser cuadrada para calcular la entropía markoviana.")
+    estados = estadosEstables(matriz)
+    h = 0
+    for i in range(matriz.cantidadColumnas):
+        columna = matriz.getColumna(i)
+        h += estados[i][0] * entropia(columna)
+    return h
+
+def obtenerAlfabetoYTransiciones(mensaje: str) -> tuple[list[str], Matriz[float]]:
+    """
+    Obtiene el alfabeto y la matriz de transiciones de primer orden de un mensaje.
+    
+    Parámetros:
+        mensaje (str): El mensaje emitido por la fuente.
+    Precondiciones:
+        - El mensaje no debe estar vacío.
+        - El mensaje debe ser representativo de la fuente
+    Retorna:
+        tuple: Una tupla que contiene una lista con el alfabeto y una lista con su matriz de transiciones.
+    """
+    alfabeto = []
+    longitud = len(mensaje)
+
+    # Obtener alfabeto
+    for simbolo in mensaje:
+        if simbolo not in alfabeto:
+            alfabeto.append(simbolo)
+
+    transiciones = mf.ceros(len(alfabeto), len(alfabeto))
+
+    # Obtener matriz de transiciones
+    for i in range(longitud - 1):
+        transiciones[alfabeto.index(mensaje[i+1])][alfabeto.index(mensaje[i])] += 1
+
+    transiciones.normalizar()
+
+    return alfabeto, transiciones
+
+def simularMensaje(alfabeto: list[str], transiciones: Matriz[float], longitud: int, simbolo_inicial: str = "") -> str:
+    """
+    Simula un mensaje emitido por una fuente de primer orden.
+    
+    Parámetros:
+        alfabeto (list[str]): El alfabeto de la fuente.
+        transiciones (Matriz[float]): La matriz de transiciones de primer orden.
+        longitud (int): La longitud del mensaje a simular.
+        simbolo_inicial (str, opcional): El símbolo inicial del mensaje. Si no se proporciona, se selecciona aleatoriamente.
+    Precondiciones:
+        - El alfabeto no debe estar vacío.
+        - El mensaje no debe estar vacío.
+        - La matriz de transiciones no debe estar vacía.
+        - La matriz de transiciones debe estar normalizada.
+    Retorna:
+        str: El mensaje simulado.
+    """
+
+    mensaje = ""
+    if simbolo_inicial == "":
+        simbolo_inicial = random.choice(alfabeto)
+    mensaje += simbolo_inicial
+
+    for _ in range(longitud - 1):
+        simbolo_actual = mensaje[-1]
+        columna = alfabeto.index(simbolo_actual)
+        siguiente_simbolo = random.choices(alfabeto, weights=transiciones.getColumna(columna))[0]
+        mensaje += siguiente_simbolo
+
+    return mensaje
+
+def esFuenteDeMemoriaNula(matriz_de_transiciones: Matriz[float], tolerancia: float = 0.1) -> bool:
+    """
+    Verifica si una fuente es de memoria nula.
+    
+    Parámetros:
+        matriz_de_transiciones (Matriz[float]): La matriz de transiciones de la fuente.
+        tolerancia (float): Un valor de tolerancia para considerar que una probabilidad es cero.
+    Retorna:
+        bool: True si la fuente es de memoria nula, False en caso contrario.
+    """
+    for fila in matriz_de_transiciones:
+        if max(fila)-min(fila) > tolerancia:
+            return False
+    return True
