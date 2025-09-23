@@ -1,6 +1,7 @@
 import math
 import random
 from Matriz import Matriz
+from typing import List, Tuple
 
 def cantidadInformacion(p: float, r=2) -> float:
     """
@@ -33,7 +34,7 @@ def entropia(probabilidades: list, r=2) -> float:
         H += p * cantidadInformacion(p, r)
     return H
 
-def getAlfaProbabilidades(texto: str):
+def getAlfaProbabilidades(texto: str) -> Tuple[List[str], List[float]]:
     """
     Dada una cadena de caracteres, devuelve una lista con su alfabeto y una lista con sus probabilidades.
     
