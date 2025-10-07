@@ -161,3 +161,26 @@ def get_longitud_media(palabras_codigo: list[str], probabilidades: list[float])-
     for p_i, l_i in zip(probabilidades, longitudes):
         longitud_media += p_i * l_i
     return longitud_media
+
+def huffman(probabilidades: list[float]) -> list[str]:
+    """
+    Construye un codigo compacto de Huffman a partir de una lista de probabilidades.
+
+    Parámetros:
+        - probabilidades (list[float]): Lista de probabilidades de los símbolos de la fuente.
+    
+    Retorna: lista paralela a 'probabilidades' con las palabras código generadas.
+    """
+
+    items = [[p, [i]] for i, p in enumerate(probabilidades)]
+    codigos = [''] * len(probabilidades)
+    while len(items) > 1:
+        items = sorted(items, key=lambda x: x[0])
+        menor1 = items.pop(0)
+        menor2 = items.pop(0)
+        for i in menor1[1]:
+            codigos[i] = '0' + codigos[i]
+        for i in menor2[1]:
+            codigos[i] = '1' + codigos[i]
+        items.append([menor1[0] + menor2[0], menor1[1] + menor2[1]])
+    return codigos
