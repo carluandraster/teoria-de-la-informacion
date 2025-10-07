@@ -85,6 +85,27 @@ def entropia(probabilidades: list, r=2) -> float:
         H += p * cantidadInformacion(p, r)
     return H
 
+def get_alfabeto_codigo(C: list[str])->str:
+    """
+    Dada una lista que contiene las palabras código de una codificación, obtiene una cadena de caracteres con el alfabeto código.
+
+    Parámetros:
+        - codigos: list[str] - Lista de palabras código.
+
+    Retorna:
+        - str - Cadena de caracteres con el alfabeto código.
+    
+    Contrato:
+        - Precondición: codigos debe ser una lista de cadenas no vacías y distina de None.
+        - Postcondición: El resultado es una cadena que contiene todos los caracteres únicos presentes en las palabras código.
+    """
+    x = ""
+    for codigo in C:
+        for caracter in codigo:
+            if caracter not in x:
+                x += caracter
+    return x
+
 def entropia_de_la_fuente(codigos: list[str], probabilidades: list[float]) -> float:
     """Calcula la entropía de una fuente de información dada su distribución de probabilidades y su abecedario.
 
@@ -102,4 +123,4 @@ def entropia_de_la_fuente(codigos: list[str], probabilidades: list[float]) -> fl
         - len(probabilidades) > 0
         - len(codigos) > 0
     """
-    return entropia(probabilidades, len(ej9.get_alfabeto_codigo(codigos)))
+    return entropia(probabilidades, len(get_alfabeto_codigo(codigos)))
