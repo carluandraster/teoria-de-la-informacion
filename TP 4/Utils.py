@@ -185,16 +185,16 @@ def huffman(probabilidades: list[float]) -> list[str]:
         items.append([menor1[0] + menor2[0], menor1[1] + menor2[1]])
     return codigos
 
-def _shannon_fano_rec(probabilidades, codigos, prefijo=''):
+def _shannon_fano_rec(probabilidades: list[tuple[int, float]], codigos: list[str], prefijo=''):
     if len(probabilidades) == 1:
         codigos[probabilidades[0][1]] = prefijo
     else:
         total = sum(p for p, _ in probabilidades)
         acumulado = 0
-        for i, (p, idx) in enumerate(probabilidades):
-            acumulado += p
-            if acumulado >= total / 2:
-                break
+        i = 0
+        while i<len(probabilidades) and acumulado < total / 2:
+            acumulado += probabilidades[i][1]
+            i+=1
         _shannon_fano_rec(probabilidades[:i+1], codigos, prefijo + '0')
         _shannon_fano_rec(probabilidades[i+1:], codigos, prefijo + '1')
 
