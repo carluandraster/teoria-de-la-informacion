@@ -13,7 +13,5 @@ def primer_teorema_shannon(probabilidades: list[float], palabras_codigo: list[st
     """
     s_n, probabilidades_n = generarConExtension(palabras_codigo, probabilidades, n)
     longitud_media_n = get_longitud_media(s_n, probabilidades_n)
-    print("L = ", longitud_media_n)
     entropia_n = entropia_de_la_fuente(s_n, probabilidades_n)
-    print("H = ", entropia_n)
     return entropia_n <= longitud_media_n and longitud_media_n <= entropia_n + 1
