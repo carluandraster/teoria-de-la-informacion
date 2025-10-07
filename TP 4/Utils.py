@@ -12,13 +12,13 @@ def generar_combinaciones(alfabeto: list, N: int) -> list:
         list: lista de combinaciones generadas.
     """
     if N == 1:
-        return [letra for letra in alfabeto]
+        return [[letra] for letra in alfabeto]
     else:
         combinaciones_previas = generar_combinaciones(alfabeto, N - 1)
         nuevas_combinaciones = []
         for combinacion in combinaciones_previas:
             for letra in alfabeto:
-                nuevas_combinaciones.append(combinacion + letra)
+                nuevas_combinaciones.append(combinacion + [letra])
         return nuevas_combinaciones
 
 def generarConExtension(alfabeto: list, probabilidades: list[float], N: int):
@@ -49,7 +49,10 @@ def generarConExtension(alfabeto: list, probabilidades: list[float], N: int):
             probabilidad *= probabilidades[indice]
         nuevas_probabilidades.append(probabilidad)
 
-    return combinaciones, nuevas_probabilidades
+    # Convertir las combinaciones de listas de letras a cadenas
+    nuevas_letras = ["".join(combinacion) for combinacion in combinaciones]
+
+    return nuevas_letras, nuevas_probabilidades
 
 def cantidadInformacion(p: float, r=2) -> float:
     """Dada una probabilidad, calcula la cantidad de información.
