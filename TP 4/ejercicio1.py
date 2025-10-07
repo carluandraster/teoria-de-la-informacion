@@ -12,8 +12,6 @@ def primer_teorema_shannon(probabilidades: list[float], palabras_codigo: list[st
     Retorna: true si se cumple el teorema, false en caso contrario.
     """
     s_n, probabilidades_n = generarConExtension(palabras_codigo, probabilidades, n)
-    print("Sn = ", s_n)	
-    print("Probabilidades n = ", probabilidades_n)
     longitud_media_n = get_longitud_media(s_n, probabilidades_n)
     print("L = ", longitud_media_n)
     entropia_n = entropia_de_la_fuente(s_n, probabilidades_n)
