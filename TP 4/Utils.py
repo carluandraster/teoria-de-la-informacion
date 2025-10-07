@@ -184,3 +184,31 @@ def huffman(probabilidades: list[float]) -> list[str]:
             codigos[i] = '1' + codigos[i]
         items.append([menor1[0] + menor2[0], menor1[1] + menor2[1]])
     return codigos
+
+def _shannon_fano_rec(probabilidades, codigos, prefijo=''):
+    if len(probabilidades) == 1:
+        codigos[probabilidades[0][1]] = prefijo
+    else:
+        total = sum(p for p, _ in probabilidades)
+        acumulado = 0
+        for i, (p, idx) in enumerate(probabilidades):
+            acumulado += p
+            if acumulado >= total / 2:
+                break
+        _shannon_fano_rec(probabilidades[:i+1], codigos, prefijo + '0')
+        _shannon_fano_rec(probabilidades[i+1:], codigos, prefijo + '1')
+
+def shannon_fano(probabilidades: list[float]) -> list[str]:
+    """
+    Construye un codigo compacto de Shannon-Fano a partir de una lista de probabilidades.
+
+    Parámetros:
+        - probabilidades (list[float]): Lista de probabilidades de los símbolos de la fuente.
+    
+    Retorna: lista paralela a 'probabilidades' con las palabras código generadas.
+    """
+    indexed_probabilidades = list(enumerate(probabilidades))
+    indexed_probabilidades.sort(key=lambda x: x[1], reverse=True)
+    codigos = [''] * len(probabilidades)
+    _shannon_fano_rec(indexed_probabilidades, codigos)
+    return codigos
