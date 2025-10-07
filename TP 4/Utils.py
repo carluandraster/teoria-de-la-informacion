@@ -124,3 +124,40 @@ def entropia_de_la_fuente(codigos: list[str], probabilidades: list[float]) -> fl
         - len(codigos) > 0
     """
     return entropia(probabilidades, len(get_alfabeto_codigo(codigos)))
+
+def get_longitudes(codigos: list[str])->list[int]:
+    """
+    Dada una lista con palabras código, obtiene una lista con las longitudes de cada palabra código.
+
+    Parámetros:
+        - codigos: list[str] - Lista de palabras código.
+    
+    Retorna:
+        - list[int] - Lista con las longitudes de cada palabra código.
+    
+    Contrato:
+        - Precondición: codigos debe ser una lista de cadenas no vacías y distinta de None.
+        - Postcondición: El resultado es una lista de enteros donde cada entero representa la longitud de la palabra código correspondiente en la lista de entrada.
+    """
+    return [len(codigo) for codigo in codigos]
+
+def get_longitud_media(palabras_codigo: list[str], probabilidades: list[float])->float:
+    """
+    Dada 2 listas, una de palabras código y otra de probabilidades, devuelve la longitud media del código.
+
+    Parámetros:
+        - palabras_codigo (list[str]): Lista de palabras código.
+        - probabilidades (list[float]): Lista de probabilidades de los símbolos de la fuente.
+    
+    Retorna: un float que representa la longitud media del código.
+
+    Contrato:
+        - len(palabras_codigo) == len(probabilidades)
+        - sum(probabilidades) == 1
+        - all(p >= 0 and p<=1 for p in probabilidades)
+    """
+    longitudes = get_longitudes(palabras_codigo)
+    longitud_media = 0
+    for p_i, l_i in zip(probabilidades, longitudes):
+        longitud_media += p_i * l_i
+    return longitud_media
