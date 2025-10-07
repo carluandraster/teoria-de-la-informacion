@@ -10,7 +10,7 @@ if(primer_teorema_shannon(P, C1, 1)):
 else:
     print("El código C1 no cumple el primer teorema de Shannon")
 
-if(primer_teorema_shannon(P_2, C2, 2)):
-    print("La extension 2 del código C1 cumple el primer teorema de Shannon")
+if(primer_teorema_shannon(P_2, C2, 1)):
+    print("El código C2 cumple el primer teorema de Shannon")
 else:
-    print("La extension 2 del código C1 no cumple el primer teorema de Shannon")
+    print("El código C2 no cumple el primer teorema de Shannon")
