@@ -65,7 +65,7 @@ class Decodificador:
             - mensaje no es None ni una cadena vacia.
         """
         mensaje_codificado = bytearray()
-        for simbolo in mensaje.split():
+        for simbolo in mensaje:
             if simbolo in self.__alfabeto_fuente:
                 mensaje_codificado.extend(self.__codificacion[self.__alfabeto_fuente.index(simbolo)].encode())
             else:
