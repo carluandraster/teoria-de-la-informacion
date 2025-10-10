@@ -41,10 +41,12 @@ class Decodificador:
         mensaje_decodificado = ""
         aux = ""
         for byte in mensaje_codificado:
-            aux += str(byte)
-            if aux in self.__codificacion:
-                mensaje_decodificado += self.__alfabeto_fuente[self.__codificacion.index(aux)]
-                aux = ""
+            bits = format(byte, '08b')  # Convertir byte a una cadena de 8 unos y ceros
+            for bit in bits:
+                aux += bit
+                if aux in self.__codificacion:
+                    mensaje_decodificado += self.__alfabeto_fuente[self.__codificacion.index(aux)]
+                    aux = ""
         if aux != "":
             raise ValueError("El mensaje no se pudo decodificar completamente.")
         return mensaje_decodificado
