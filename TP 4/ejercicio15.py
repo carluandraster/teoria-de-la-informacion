@@ -65,9 +65,13 @@ class Decodificador:
             - mensaje no es None ni una cadena vacia.
         """
         mensaje_codificado = bytearray()
+        aux = ""
         for simbolo in mensaje:
             if simbolo in self.__alfabeto_fuente:
-                mensaje_codificado.extend(self.__codificacion[self.__alfabeto_fuente.index(simbolo)].encode())
+                aux += self.__codificacion[self.__alfabeto_fuente.index(simbolo)]
             else:
                 raise ValueError(f"El símbolo '{simbolo}' no está en el alfabeto fuente.")
+        for i in range(0, len(aux), 8):
+            byte = aux[i:i+8]
+            mensaje_codificado.append(int(byte, 2))
         return mensaje_codificado
