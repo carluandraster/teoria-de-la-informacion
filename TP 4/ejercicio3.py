@@ -5,12 +5,15 @@ C2 = ["10", "001", "110", "010", "0000", "0001", "111", "0110", "0111"]
 P = [0.5, 0.2, 0.3]
 P_2 = [P[i]*P[j] for i in range(len(P)) for j in range(len(P))]
 
-if(primer_teorema_shannon(P, C1, 1)):
-    print("El código C1 cumple el primer teorema de Shannon")
-else:
-    print("El código C1 no cumple el primer teorema de Shannon")
+if __name__ == "__main__":
+    print("Ejercicio 3")
 
-if(primer_teorema_shannon(P_2, C2, 1)):
-    print("El código C2 cumple el primer teorema de Shannon")
-else:
-    print("El código C2 no cumple el primer teorema de Shannon")
+    if(primer_teorema_shannon(P, C1, 1)):
+        print("El código C1 cumple el primer teorema de Shannon")
+    else:
+        print("El código C1 no cumple el primer teorema de Shannon")
+
+    if(primer_teorema_shannon(P_2, C2, 1)):
+        print("El código C2 cumple el primer teorema de Shannon")
+    else:
+        print("El código C2 no cumple el primer teorema de Shannon")
