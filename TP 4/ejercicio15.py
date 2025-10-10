@@ -69,9 +69,10 @@ class Decodificador:
         for simbolo in mensaje:
             if simbolo in self.__alfabeto_fuente:
                 aux += self.__codificacion[self.__alfabeto_fuente.index(simbolo)]
+                if len(aux) >= 8:
+                    mensaje_codificado.append(int(aux[:8], 2))
+                    aux = aux[8:]
             else:
                 raise ValueError(f"El símbolo '{simbolo}' no está en el alfabeto fuente.")
-        for i in range(0, len(aux), 8):
-            byte = aux[i:i+8]
-            mensaje_codificado.append(int(byte, 2))
+        mensaje_codificado.append(int(aux.ljust(8, '0'), 2))  # Rellenar con ceros a la derecha si es necesario
         return mensaje_codificado
