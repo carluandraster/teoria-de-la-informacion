@@ -1,4 +1,4 @@
-from Utils import shannon_fano, huffman
+from ejercicio11 import shannon_fano, huffman
 from ejercicio1 import primer_teorema_shannon
 
 OMEGA = 0.7

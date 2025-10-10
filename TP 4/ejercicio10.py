@@ -1,4 +1,5 @@
-from Utils import getAlfaProbabilidades, huffman, shannon_fano
+from Utils import getAlfaProbabilidades
+from ejercicio11 import huffman, shannon_fano
 
 def engine(texto: str) -> None:
     alfabeto, probabilidades = getAlfaProbabilidades(texto)
