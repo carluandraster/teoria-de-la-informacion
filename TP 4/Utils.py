@@ -184,3 +184,16 @@ def getAlfaProbabilidades(texto: str):
     for i in range(len(probabilidades)):
         probabilidades[i] /= longitud
     return alfabeto, probabilidades
+
+def get_alfaprobabilidades_ordenado(texto: str):
+    """
+    Dada una cadena de caracteres, devuelve una lista con su alfabeto ordenado y una lista con sus probabilidades, ambas ordenadas alfabéticamente.
+    
+    Parámetros:
+        texto (str): La cadena de caracteres.
+    """
+    alfabeto, probabilidades = getAlfaProbabilidades(texto)
+    indices_ordenados = sorted(range(len(alfabeto)), key=lambda i: alfabeto[i])
+    alfabeto_ordenado = [alfabeto[i] for i in indices_ordenados]
+    probabilidades_ordenadas = [probabilidades[i] for i in indices_ordenados]
+    return alfabeto_ordenado, probabilidades_ordenadas
