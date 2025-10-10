@@ -219,3 +219,26 @@ def shannon_fano(probabilidades: list[float]) -> list[str]:
     codigos = [''] * len(probabilidades)
     _shannon_fano_rec(indexed_probabilidades, codigos)
     return codigos
+
+def getAlfaProbabilidades(texto: str):
+    """
+    Dada una cadena de caracteres, devuelve una lista con su alfabeto y una lista con sus probabilidades.
+    
+    Parámetros:
+        texto (str): La cadena de caracteres.
+    Retorna:
+        tuple: Una tupla que contiene una lista con el alfabeto y una lista con sus probabilidades.
+    """
+    alfabeto = []
+    probabilidades = []
+    longitud = len(texto)
+    for simbolo in texto:
+        if simbolo in alfabeto:
+            index = alfabeto.index(simbolo)
+            probabilidades[index] += 1
+        else:
+            alfabeto.append(simbolo)
+            probabilidades.append(1)
+    for i in range(len(probabilidades)):
+        probabilidades[i] /= longitud
+    return alfabeto, probabilidades
