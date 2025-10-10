@@ -45,10 +45,11 @@ if __name__ == "__main__":
     codificacion, rendimiento = generar_codificacion(PROBABILIDADES)
     print("Rendimiento: {:.4f}".format(rendimiento))
     decodificador = Decodificador(SIMBOLOS, codificacion)
-    mensaje = input("Ingrese un mensaje: ")
+    mensaje = input("Ingrese un mensaje: ").upper()
     mensaje_codificado = decodificador.codificar(mensaje)
+    print("Tasa de compresión: {:.4f}".format(get_tasa_de_compresion(mensaje, mensaje_codificado)))
     
     # Persistir en archivo binario
-    nombre_archivo = "mensaje_codificado.dat"
+    nombre_archivo = "TP 4/mensaje_codificado.dat"
     with open(nombre_archivo, 'wb') as archivo:
         archivo.write(mensaje_codificado)
