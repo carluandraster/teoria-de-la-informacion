@@ -7,10 +7,9 @@ def get_tasa_de_compresion(mensaje: str, mensaje_comprimido: bytearray) -> float
         mensaje_comprimido (bytearray): El mensaje comprimido.
 
     Returns:
-        float: La tasa de compresión, definida como la diferencia entre el tamaño del mensaje original
-               y el tamaño del mensaje comprimido, dividido por el tamaño del mensaje original.
+        float: La tasa de compresión, definida como la división entre el tamaño original y el tamaño comprimido.
     """
     tamanio_mensaje = len(mensaje)
     tamanio_mensaje_comprimido = len(mensaje_comprimido)
-    tasa_de_compresion = (tamanio_mensaje -  tamanio_mensaje_comprimido )/ tamanio_mensaje
+    tasa_de_compresion = tamanio_mensaje / tamanio_mensaje_comprimido if tamanio_mensaje_comprimido else 0
     return tasa_de_compresion
