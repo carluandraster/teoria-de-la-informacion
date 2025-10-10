@@ -47,8 +47,6 @@ class Decodificador:
                 if aux in self.__codificacion:
                     mensaje_decodificado += self.__alfabeto_fuente[self.__codificacion.index(aux)]
                     aux = ""
-        if aux != "":
-            raise ValueError("El mensaje no se pudo decodificar completamente.")
         return mensaje_decodificado
     
     def codificar(self, mensaje: str) -> bytearray:
