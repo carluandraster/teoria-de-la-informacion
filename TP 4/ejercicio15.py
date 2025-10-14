@@ -80,7 +80,7 @@ class Decodificador:
         for simbolo in mensaje:
             if simbolo in self.__alfabeto_fuente:
                 aux += self.__codificacion[self.__alfabeto_fuente.index(simbolo)]
-                if len(aux) >= 8:
+                while len(aux) >= 8:
                     mensaje_codificado.append(int(aux[:8], 2))
                     aux = aux[8:]
             else:
