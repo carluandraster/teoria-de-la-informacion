@@ -40,13 +40,26 @@ class Decodificador:
         """
         mensaje_decodificado = ""
         aux = ""
-        for byte in mensaje_codificado:
+        residuo = mensaje_codificado[0] >> 5 & 0x07  # Obtener los 3 bits mas significativos
+        bits = format(mensaje_codificado[0], '08b')
+        for bit in bits[3:]:
+            aux += bit
+            if aux in self.__codificacion:
+                mensaje_decodificado += self.__alfabeto_fuente[self.__codificacion.index(aux)]
+                aux = ""
+        for byte in mensaje_codificado[1:-1]:
             bits = format(byte, '08b')  # Convertir byte a una cadena de 8 unos y ceros
             for bit in bits:
                 aux += bit
                 if aux in self.__codificacion:
                     mensaje_decodificado += self.__alfabeto_fuente[self.__codificacion.index(aux)]
                     aux = ""
+        bits = format(mensaje_codificado[-1], '08b')
+        for bit in bits[:8 - residuo]:
+            aux += bit
+            if aux in self.__codificacion:
+                mensaje_decodificado += self.__alfabeto_fuente[self.__codificacion.index(aux)]
+                aux = ""
         return mensaje_decodificado
     
     def codificar(self, mensaje: str) -> bytearray:
@@ -63,7 +76,7 @@ class Decodificador:
             - mensaje no es None ni una cadena vacia.
         """
         mensaje_codificado = bytearray()
-        aux = ""
+        aux = "000"
         for simbolo in mensaje:
             if simbolo in self.__alfabeto_fuente:
                 aux += self.__codificacion[self.__alfabeto_fuente.index(simbolo)]
@@ -72,5 +85,7 @@ class Decodificador:
                     aux = aux[8:]
             else:
                 raise ValueError(f"El símbolo '{simbolo}' no está en el alfabeto fuente.")
+        residuo = 8 - len(aux)
         mensaje_codificado.append(int(aux.ljust(8, '0'), 2))  # Rellenar con ceros a la derecha si es necesario
+        mensaje_codificado[0] = residuo << 5 | mensaje_codificado[0]
         return mensaje_codificado
