@@ -3,7 +3,7 @@ def get_distancia_de_hamming(codigo: list[str]) -> tuple[int, int , int]:
     
     :param codigo: lista de cadenas que representan las palabras del código. Todas las cadenas deben tener la misma longitud.
     
-    :return: una tupla con la distancia de Hamming, la cantidad de errores detectables y la cantidad de errores corregibles
+    :return: una tupla con la distancia de Hamming, la cantidad de errores detectables y la cantidad de errores corregibles en ese orden
     """
     distancia_de_haming = float('inf')
     for cod1 in codigo:
