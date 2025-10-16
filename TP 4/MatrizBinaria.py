@@ -15,13 +15,19 @@ class MatrizBinaria(Matriz[bool]):
     def _convertir_a_bytearray(self, lista: list[bool]) -> bytearray:
         byte = 0
         vector_de_bytes = bytearray()
-        for i, bit in enumerate(lista):
-            if bit:
-                byte |= (1 << (7 - i % 8))
-            if i % 8 == 7:
+        if len(lista) > 8:
+            for i, bit in enumerate(lista):
+                if bit:
+                    byte |= (1 << (7 - i % 8))
+                if i % 8 == 7:
+                    vector_de_bytes.append(byte)
+                    byte = 0
+            if len(lista) % 8 != 0:
                 vector_de_bytes.append(byte)
-                byte = 0
-        if len(lista) % 8 != 0:
+        else:
+            for i, bit in enumerate(lista):
+                if bit:
+                    byte |= (1 << (len(lista) - 1 - i))
             vector_de_bytes.append(byte)
         return vector_de_bytes
     
@@ -75,13 +81,14 @@ class MatrizBinaria(Matriz[bool]):
         for i in range(self.cantidad_columnas):
             columna = self.getColumna(i)
             columna_str = ''.join([bin(byte) for byte in columna])
-            if columna_str[1:].count('1') % 2 != columna[0] & 0x1:
+            if columna_str[1:].count('1') % 2 != columna[0] & 0x80:
                 errores_en_columnas.append(i)
 
         # Recorrer filas
         for i in range(self.cantidad_filas):
             fila = self.getFila(i)
-            if fila[:-1].count(1) % 2 != fila[-1]:
+            fila_str = ''.join([bin(byte) for byte in fila])
+            if fila_str[:-1].count('1') % 2 != fila[-1] & 0x1:
                 errores_en_filas.append(i)
 
         # Emparejar errores
@@ -110,7 +117,7 @@ class MatrizBinaria(Matriz[bool]):
         
         fila, columna = errores[0]
 
-        self.matriz[fila][columna] = not self.matriz[fila][columna]
+        self[fila][columna] = not self[fila][columna]
 
         return True
     
