@@ -113,3 +113,9 @@ class MatrizBinaria(Matriz[bool]):
         self.matriz[fila][columna] = not self.matriz[fila][columna]
 
         return True
+    
+    def __str__(self):
+        string = ""
+        for fila in range(self.cantidad_filas):
+            string += " ".join(str(bit) for bit in self.getFila(fila)) + "\n"
+        return string
