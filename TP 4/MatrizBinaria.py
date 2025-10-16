@@ -62,3 +62,52 @@ class MatrizBinaria(Matriz[bool]):
         d = self.get_distancia_de_hamming()
         return (d - 1) // 2 if d > 0 else 0
     
+    def get_errores(self) -> list[tuple]:
+        """Devuelve una lista de tuplas que representan las posiciones de los errores.
+        
+        :return: Una lista de tuplas (fila, columna) indicando las posiciones de los errores.
+        Si un error en columna no está apareado con un error en fila, la fila será -1 y viceversa.
+        """
+        errores_en_columnas = []
+        errores_en_filas = []
+        
+        # Recorrer columnas
+        for i in range(self.cantidad_columnas):
+            columna = self.getColumna(i)
+            columna_str = ''.join([bin(byte) for byte in columna])
+            if columna_str[1:].count('1') % 2 != columna[0] & 0x1:
+                errores_en_columnas.append(i)
+
+        # Recorrer filas
+        for i in range(self.cantidad_filas):
+            fila = self.getFila(i)
+            if fila[:-1].count(1) % 2 != fila[-1]:
+                errores_en_filas.append(i)
+
+        # Emparejar errores
+        errores = []
+        for i, (columna, fila) in enumerate(zip(errores_en_columnas, errores_en_filas)):
+            errores.append((fila, columna))
+        if len(errores_en_columnas) > len(errores_en_filas):
+            for columna in errores_en_columnas[len(errores_en_filas):]:
+                errores.append((-1, columna))
+        elif len(errores_en_filas) > len(errores_en_columnas):
+            for fila in errores_en_filas[len(errores_en_columnas):]:
+                errores.append((fila, -1))
+
+        return errores
+    
+    def corregir(self) -> bool:
+        """Intenta corregir los errores en la matriz si es posible.
+        
+        :return: True si se pudieron corregir los errores, False en caso contrario.
+        """
+        errores = self.get_errores()
+        if len(errores) > 1:
+            return False
+        
+        fila, columna = errores[0]
+
+        self.matriz[fila][columna] = not self.matriz[fila][columna]
+
+        return True
