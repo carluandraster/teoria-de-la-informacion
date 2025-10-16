@@ -103,6 +103,8 @@ class MatrizBinaria(Matriz[bool]):
         :return: True si se pudieron corregir los errores, False en caso contrario.
         """
         errores = self.get_errores()
+        if len(errores) == 0:
+            return True
         if len(errores) > 1:
             return False
         

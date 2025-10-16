@@ -57,19 +57,27 @@ def corregir_mensaje(mensaje: bytearray) -> bytearray | None:
     """
 
     problema_solucionado = True
-    for index, byte in enumerate(mensaje[1:]):
-        if not es_correcto(byte):
-            i = 0
-            problema_solucionado = False
-            while i < 8 and not problema_solucionado:
-                acum = 0
-                for b in mensaje[1:]:
-                    acum += b >> (7 - i) & 0b00000001
-                if acum % 2 != (mensaje[0] >> (7 - i) & 0b00000001):
-                    mensaje[index + 1] ^= (1 << (7 - i))
-                    problema_solucionado = True
-                i += 1
-    return mensaje if problema_solucionado else None
+    primer_error_encontrado = False
+    segundo_error_encontrado = False
+    index = 0
+    while index < len(mensaje) and not segundo_error_encontrado and problema_solucionado:
+        if not es_correcto(mensaje[index]):
+            if primer_error_encontrado:
+                segundo_error_encontrado = True
+            else:
+                i = 0
+                problema_solucionado = False
+                while i < 8 and not problema_solucionado:
+                    acum = 0
+                    for b in mensaje[1:]:
+                        acum += b >> (7 - i) & 0b00000001
+                    if acum % 2 != (mensaje[0] >> (7 - i) & 0b00000001):
+                        mensaje[index + 1] ^= (1 << (7 - i))
+                        problema_solucionado = True
+                    i += 1
+                primer_error_encontrado = True
+        index += 1
+    return mensaje if problema_solucionado and not segundo_error_encontrado else None
 
 def from_bytes_to_string(mensaje: bytearray) -> str:
     """Convierte un mensaje en bytes a su representación en string.
