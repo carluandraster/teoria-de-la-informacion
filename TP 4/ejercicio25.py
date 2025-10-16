@@ -7,7 +7,7 @@ MENSAJE_B = mb(["00101101", "10011001", "10001010", "10011100", "10000010"])
 
 MENSAJE_C = mb(["00101010", "10000010", "10011010", "10011111", "10100101"]) 
 
-MENSAJE_D = mb(["00010100", "10010000", "10011110", "10000010", "10011001"])
+MENSAJE_D = mb(["00010100", "10010000", "10011110", "10011001", "10000010"])
 
 MENSAJE_E = mb(["00110101", "10011010", "10001010", "10011100", "10000010"])
 
@@ -45,13 +45,11 @@ def resolver(nombre: str, mensaje: mb) -> None:
         print(f"Mensaje {nombre}: {from_mb_to_string(mensaje)}")
 
 if __name__ == "__main__":
-    # resolver("A", MENSAJE_A)
-    # resolver("B", MENSAJE_B)
-    # resolver("C", MENSAJE_C)
-    print(MENSAJE_D)
-    print(MENSAJE_D.get_errores())
+    resolver("A", MENSAJE_A)
+    resolver("B", MENSAJE_B)
+    resolver("C", MENSAJE_C)
     resolver("D", MENSAJE_D)
-    # resolver("E", MENSAJE_E)
-    # resolver("F", MENSAJE_F)
-    # resolver("G", MENSAJE_G)
-    # resolver("H", MENSAJE_H)
+    resolver("E", MENSAJE_E)
+    resolver("F", MENSAJE_F)
+    resolver("G", MENSAJE_G)
+    resolver("H", MENSAJE_H)

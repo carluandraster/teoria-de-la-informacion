@@ -124,5 +124,7 @@ class MatrizBinaria(Matriz[bool]):
     def __str__(self):
         string = ""
         for fila in range(self.cantidad_filas):
-            string += " ".join(str(bit) for bit in self.getFila(fila)) + "\n"
+            for columna in range(self.cantidad_columnas):
+                string += '1' if self[fila][columna] else '0'
+            string += '\n'
         return string
