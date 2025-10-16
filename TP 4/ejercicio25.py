@@ -48,23 +48,6 @@ MENSAJE_H = bytearray([int("00111110", 2),
                        int("10000010", 2),
                        int("10101010", 2)])
 
-def mensaje_correcto(mensaje: bytearray) -> bool:
-    """Dado un mensaje recibido, verifica si es correcto.
-    
-    :param mensaje: bytearray que representa el mensaje recibido.
-    
-    :return: True si el mensaje es correcto, False en caso contrario.
-    """
-    is_mensaje_correcto = True
-    i = 0
-    while i < len(mensaje) and is_mensaje_correcto:
-        byte = mensaje[i]
-        if not es_correcto(byte):
-            is_mensaje_correcto = False
-        i += 1
-
-    return is_mensaje_correcto
-
 def corregir_mensaje(mensaje: bytearray) -> bytearray | None:
     """Dado un mensaje recibido, intenta corregirlo si es posible.
     
@@ -73,23 +56,20 @@ def corregir_mensaje(mensaje: bytearray) -> bytearray | None:
     :return: un bytearray con el mensaje corregido o None si no se pudo corregir.
     """
 
-    if mensaje_correcto(mensaje):
-        return mensaje
-    else:
-        i = 0
-        j = 0
-        while i < len(mensaje) and not mensaje_correcto(mensaje):
-            while j < 8 and not mensaje_correcto(mensaje):
-                mensaje[i] ^= 1 << j
-                if mensaje_correcto(mensaje):
-                    return mensaje
-                else:
-                    j += 1
-            i += 1
-            j = 0
-            mensaje[i] ^= 1 << j
-    
-    return None
+    problema_solucionado = True
+    for index, byte in enumerate(mensaje[1:]):
+        if not es_correcto(byte):
+            i = 0
+            problema_solucionado = False
+            while i < 8 and not problema_solucionado:
+                acum = 0
+                for b in mensaje[1:]:
+                    acum += b >> (7 - i) & 0b00000001
+                if acum % 2 != (mensaje[0] >> (7 - i) & 0b00000001):
+                    mensaje[index + 1] ^= (1 << (7 - i))
+                    problema_solucionado = True
+                i += 1
+    return mensaje if problema_solucionado else None
 
 def from_bytes_to_string(mensaje: bytearray) -> str:
     """Convierte un mensaje en bytes a su representación en string.
@@ -100,16 +80,54 @@ def from_bytes_to_string(mensaje: bytearray) -> str:
     """
     resultado = ""
     for byte in mensaje[1:]:
-        resultado += chr(byte & 0b11111110)
+        resultado += chr(byte >> 1 & 0x7f)
     
     return resultado
 
 if __name__ == "__main__":
-    print("Mensaje A:", from_bytes_to_string(corregir_mensaje(MENSAJE_A)))
-    print("Mensaje B:", from_bytes_to_string(corregir_mensaje(MENSAJE_B)))
-    print("Mensaje C:", from_bytes_to_string(corregir_mensaje(MENSAJE_C)))
-    print("Mensaje D:", from_bytes_to_string(corregir_mensaje(MENSAJE_D)))
-    print("Mensaje E:", from_bytes_to_string(corregir_mensaje(MENSAJE_E)))
-    print("Mensaje F:", from_bytes_to_string(corregir_mensaje(MENSAJE_F)))
-    print("Mensaje G:", from_bytes_to_string(corregir_mensaje(MENSAJE_G)))
-    print("Mensaje H:", from_bytes_to_string(corregir_mensaje(MENSAJE_H)))
+    mensaje_corregido = corregir_mensaje(MENSAJE_A)
+    if mensaje_corregido is None:
+        print("No se pudo corregir el mensaje A.")
+    else:
+        print("Mensaje A:", from_bytes_to_string(mensaje_corregido))
+    mensaje_corregido = corregir_mensaje(MENSAJE_B)
+    if mensaje_corregido is None:
+        print("No se pudo corregir el mensaje B.")
+    else:
+        print("Mensaje B:", from_bytes_to_string(mensaje_corregido))
+
+    mensaje_corregido = corregir_mensaje(MENSAJE_C)
+    if mensaje_corregido is None:
+        print("No se pudo corregir el mensaje C.")
+    else:
+        print("Mensaje C:", from_bytes_to_string(mensaje_corregido))
+
+    mensaje_corregido = corregir_mensaje(MENSAJE_D)
+    if mensaje_corregido is None:
+        print("No se pudo corregir el mensaje D.")
+    else:
+        print("Mensaje D:", from_bytes_to_string(mensaje_corregido))
+
+    mensaje_corregido = corregir_mensaje(MENSAJE_E)
+    if mensaje_corregido is None:
+        print("No se pudo corregir el mensaje E.")
+    else:
+        print("Mensaje E:", from_bytes_to_string(mensaje_corregido))
+
+    mensaje_corregido = corregir_mensaje(MENSAJE_F)
+    if mensaje_corregido is None:
+        print("No se pudo corregir el mensaje F.")
+    else:
+        print("Mensaje F:", from_bytes_to_string(mensaje_corregido))
+
+    mensaje_corregido = corregir_mensaje(MENSAJE_G)
+    if mensaje_corregido is None:
+        print("No se pudo corregir el mensaje G.")
+    else:
+        print("Mensaje G:", from_bytes_to_string(mensaje_corregido))
+
+    mensaje_corregido = corregir_mensaje(MENSAJE_H)
+    if mensaje_corregido is None:
+        print("No se pudo corregir el mensaje H.")
+    else:
+        print("Mensaje H:", from_bytes_to_string(mensaje_corregido))

@@ -20,4 +20,4 @@ def es_correcto(byte: bytes) -> bool:
     Returns:
         bool: True si el byte es correcto, False en caso contrario
     """
-    return sum(bin(byte[0] & 0b11111110)) % 2 == (byte[0] & 0b00000001)
+    return sum([1 for c in bin(byte & 0b11111110) if c == '1']) % 2 == (byte & 0b00000001)
