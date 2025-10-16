@@ -213,3 +213,11 @@ class Matriz(Generic[T]):
                 if total > 0:
                     for i in range(self.__cantFilas):
                         self.__matriz[i][j] /= total
+    
+    @property        
+    def cantidad_filas(self) -> int:
+        return self.__cantFilas
+
+    @property
+    def cantidad_columnas(self) -> int:
+        return self.__cantColumnas
