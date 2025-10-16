@@ -90,4 +90,26 @@ def corregir_mensaje(mensaje: bytearray) -> bytearray | None:
             mensaje[i] ^= 1 << j
     
     return None
+
+def from_bytes_to_string(mensaje: bytearray) -> str:
+    """Convierte un mensaje en bytes a su representación en string.
     
+    :param mensaje: bytearray que representa el mensaje recibido.
+    
+    :return: una cadena de caracteres con la representación del mensaje.
+    """
+    resultado = ""
+    for byte in mensaje[1:]:
+        resultado += chr(byte & 0b11111110)
+    
+    return resultado
+
+if __name__ == "__main__":
+    print("Mensaje A:", from_bytes_to_string(corregir_mensaje(MENSAJE_A)))
+    print("Mensaje B:", from_bytes_to_string(corregir_mensaje(MENSAJE_B)))
+    print("Mensaje C:", from_bytes_to_string(corregir_mensaje(MENSAJE_C)))
+    print("Mensaje D:", from_bytes_to_string(corregir_mensaje(MENSAJE_D)))
+    print("Mensaje E:", from_bytes_to_string(corregir_mensaje(MENSAJE_E)))
+    print("Mensaje F:", from_bytes_to_string(corregir_mensaje(MENSAJE_F)))
+    print("Mensaje G:", from_bytes_to_string(corregir_mensaje(MENSAJE_G)))
+    print("Mensaje H:", from_bytes_to_string(corregir_mensaje(MENSAJE_H)))
