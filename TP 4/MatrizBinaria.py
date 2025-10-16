@@ -61,3 +61,4 @@ class MatrizBinaria(Matriz[bool]):
         :return: La cantidad máxima de errores corregibles."""
         d = self.get_distancia_de_hamming()
         return (d - 1) // 2 if d > 0 else 0
+    
