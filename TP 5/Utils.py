@@ -1,4 +1,4 @@
-def get_frecuencias(texto: str)-> dict:
+def get_frecuencias(texto: str)-> dict[str, int]:
     """
     Esta función recibe un texto y devuelve un diccionario con la frecuencia de cada carácter en el texto.
     

@@ -55,4 +55,8 @@ class Canal:
         """Devuelve las probabilidades a priori de los simbolos en la entrada del canal.
         
         :return: dict[str, float]"""
-        return get_frecuencias(self.__entrada)
+        frecuencias = get_frecuencias(self.__entrada)
+        probabilidades = {}
+        for frecuencia in frecuencias:
+            probabilidades[frecuencia] = frecuencias[frecuencia] / len(self.__entrada)
+        return probabilidades
