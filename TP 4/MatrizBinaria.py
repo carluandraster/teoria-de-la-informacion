@@ -112,7 +112,7 @@ class MatrizBinaria(Matriz[bool]):
         errores = self.get_errores()
         if len(errores) == 0:
             return True
-        if len(errores) > 1:
+        if len(errores) > 1 or errores[0] == (0, len(self[0]) - 1):
             return False
         
         fila, columna = errores[0]
