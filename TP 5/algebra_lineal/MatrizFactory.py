@@ -1,4 +1,4 @@
-from Matriz import Matriz
+from .Matriz import Matriz
 import random
 
 def ceros(filas: int, columnas: int) -> Matriz[float]:

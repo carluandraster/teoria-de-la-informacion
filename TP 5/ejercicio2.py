@@ -25,8 +25,8 @@ def get_matriz_del_canal(entrada: str, salida: str) -> Matriz[float]:
                 1 for e, s in zip(entrada, salida) if e == simbolo_entrada and s == simbolo_salida
             )
             if total_simbolo_entrada > 0:
-                matriz_canal[i, j] = conteo_conjunto / total_simbolo_entrada
+                matriz_canal[i][j] = conteo_conjunto / total_simbolo_entrada
             else:
-                matriz_canal[i, j] = 0.0
+                matriz_canal[i][j] = 0.0
 
     return matriz_canal
