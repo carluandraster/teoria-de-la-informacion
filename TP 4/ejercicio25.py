@@ -1,4 +1,3 @@
-from ejercicio24 import es_correcto
 from MatrizBinaria import MatrizBinaria as mb
 
 MENSAJE_A = mb(["00100001", "10000111", "10000010", "10100110", "10000010"])
