@@ -13,7 +13,8 @@ def resolver(titulo: str, entrada: str, salida: str) -> None:
     matriz = CANAL.get_matriz_del_canal()
     print("Teniendo en cuenta las probabilidades a priori y la matriz del canal: ",
           get_probabilidades_salidas(probabilidades_a_priori, matriz))
-    
-resolver("Ejercicio 1", ENTRADA, SALIDA)
-resolver("Ejercicio 3 - Canal 1", CANAL1.entrada, CANAL1.salida)
-resolver("Ejercicio 3 - Canal 2", CANAL2.entrada, CANAL2.salida)
+
+if __name__ == "__main__":
+    resolver("Ejercicio 1", ENTRADA, SALIDA)
+    resolver("Ejercicio 3 - Canal 1", CANAL1.get_entrada(), CANAL1.get_salida())
+    resolver("Ejercicio 3 - Canal 2", CANAL2.get_entrada(), CANAL2.get_salida())
