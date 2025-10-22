@@ -28,19 +28,19 @@ class Canal:
         self.__salida = salida
     
     @property
-    def entrada(self) -> str:
+    def get_entrada(self) -> str:
         return self.__entrada
     
     @property
-    def salida(self) -> str:
+    def get_salida(self) -> str:
         return self.__salida
     
     @property
-    def entrada(self, entrada: str):
+    def set_entrada(self, entrada: str):
         self.__entrada = entrada
     
     @property
-    def salida(self, salida: str):
+    def set_salida(self, salida: str):
         self.__salida = salida
 
     def get_matriz_del_canal(self) -> Matriz[float]:
