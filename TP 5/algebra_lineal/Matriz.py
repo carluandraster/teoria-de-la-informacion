@@ -213,3 +213,13 @@ class Matriz(Generic[T]):
                 if total > 0:
                     for i in range(self.__cantFilas):
                         self.__matriz[i][j] /= total
+    
+    @property
+    def traspuesta(self) -> 'Matriz[T]':
+        """
+        Devuelve la matriz transpuesta.
+        Retorna:
+            Matriz[T]: La matriz transpuesta.
+        """
+        resultado = [[self.__matriz[j][i] for j in range(self.__cantFilas)] for i in range(self.__cantColumnas)]
+        return Matriz(resultado)
