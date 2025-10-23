@@ -1,3 +1,12 @@
+"""Ejercicio 7 de la guía 4 de Teoría de la Información.
+
+Funciones:
+---------------
+- <b>get_probabilidades_salidas(probabilidades_a_priori: list[float], matriz_canal: Matriz[float]) -> list[float]:</b> Calcula las probabilidades de las salidas de un canal de comunicación.
+- <b>get_probabilidades_a_posteriori(probabilidades_a_priori: list[float], matriz_canal: Matriz[float]) -> Matriz[float]:</b> Calcula las probabilidades a posteriori de las entradas dado un canal de comunicación.
+- <b>get_probabilidades_eventos_simultaneos(probabilidades_a_priori: list[float], matriz_canal: Matriz[float]) -> Matriz[float]:</b> Calcula las probabilidades de eventos simultáneos de entradas y salidas en un canal de comunicación.
+"""
+
 from algebra_lineal.Matriz import Matriz
 from algebra_lineal import MatrizFactory as mf
 
