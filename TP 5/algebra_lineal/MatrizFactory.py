@@ -1,3 +1,15 @@
+"""Factory de matrices con diferentes inicializaciones.
+
+Funciones:
+---------------
+- <b>ceros(filas: int, columnas: int) -> Matriz[float]:</b> Crea una matriz de ceros con las dimensiones especificadas.
+- <b>unos(filas: int, columnas: int) -> Matriz[float]:</b> Crea una matriz de unos con las dimensiones especificadas.
+- <b>relleno(filas: int, columnas: int, valor: float) -> Matriz[float]:</b> Crea una matriz rellenada con el valor especificado.
+- <b>identidad(tamano: int) -> Matriz[float]:</b> Crea una matriz identidad de tamaño especificado.
+- <b>aleatorios(filas: int, columnas: int, min_val: float = 0.0, max_val: float = 1.0) -> Matriz[float]:</b> Crea una matriz de números aleatorios con las dimensiones especificadas.
+"""
+
+
 from .Matriz import Matriz
 import random
 
