@@ -9,7 +9,7 @@ def resolver(titulo: str, entrada: str, salida: str) -> None:
     print(titulo)
     print("Probabilidades de los símbolos de salida:")
     print("Sacando frecuencias relativas: ", dict(sorted(get_frecuencias_relativas(salida).items())))
-    probabilidades_a_priori = dict(sorted(get_frecuencias_relativas(entrada).items())).values()
+    probabilidades_a_priori = list(dict(sorted(get_frecuencias_relativas(entrada).items())).values())
     matriz = CANAL.get_matriz_del_canal()
     print("Teniendo en cuenta las probabilidades a priori y la matriz del canal: ",
           get_probabilidades_salidas(probabilidades_a_priori, matriz))
