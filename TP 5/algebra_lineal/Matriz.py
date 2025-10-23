@@ -4,6 +4,26 @@ T = TypeVar('T')
 
 # Implementación de la clase Matriz genérica
 class Matriz(Generic[T]):
+    """
+    Clase que representa una matriz genérica.
+    
+    Métodos:
+    -------------
+    - <b>__init__(self, valores: list[list[T]]):</b> Constructor de la clase Matriz.
+    - <b>cantidadFilas(self) -> int:</b> Devuelve la cantidad de filas de la matriz.
+    - <b>cantidadColumnas(self) -> int:</b> Devuelve la cantidad de columnas de la matriz.
+    - <b>inversa(self) -> 'Matriz[float]':</b> Devuelve la matriz inversa si es posible.
+    - <b>traspuesta(self) -> 'Matriz[T]':</b> Devuelve la matriz transpuesta.
+    - <b>normalizarColumnas(self) -> None:</b> Normaliza las columnas de la matriz.
+    
+    También soporta las siguientes operaciones:
+    -------------
+    - Acceso y modificación de elementos mediante índices.
+    - Comparación de matrices (==, !=).
+    - Suma y resta de matrices (+, -, +=, -=).
+    - Multiplicación de matrices y por escalares (*, *=).
+    - Representación en cadena (__str__, __repr__).
+    """
     __cantFilas: int
     __cantColumnas: int
     __matriz: list[list[T]]
