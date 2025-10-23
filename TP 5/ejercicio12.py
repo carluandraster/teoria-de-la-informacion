@@ -8,7 +8,7 @@ from Utils import entropia, get_frecuencias_relativas
 def resolver(titulo, a_priori, matriz):
     print(titulo)
     print("Entropía a priori: ", entropia(a_priori))
-    print("Entropía a posteriori: ", entropia_a_posteriori(a_priori, matriz))
+    print("Entropías a posteriori: ", entropia_a_posteriori(a_priori, matriz))
     print("-----------------\n")
 
 if __name__ == "__main__":
