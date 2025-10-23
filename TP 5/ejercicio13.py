@@ -1,10 +1,8 @@
-from ejercicio11 import entropia_a_posteriori
-from Utils import entropia
 from algebra_lineal.Matriz import Matriz
 from ejercicio12 import resolver
 
 # Canal 1
-PROBS_1 = [0.14, 0,52, 0.34]
+PROBS_1 = [0.14, 0.52, 0.34]
 MATRIZ_1 = Matriz([[0.5, 0.3, 0.2],
                   [0.0, 0.4, 0.6],
                   [0.2, 0.8, 0.0]])
