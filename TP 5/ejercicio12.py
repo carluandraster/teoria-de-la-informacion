@@ -7,10 +7,10 @@ from Utils import entropia, get_frecuencias_relativas
 
 def resolver(titulo, a_priori, matriz):
     print(titulo)
-    print(f"H(A) {entropia(a_priori):.4f} bits")
+    print(f"H(A) = {entropia(a_priori):.4f} bits")
     entropias_a_posteriori = entropia_a_posteriori(a_priori, matriz)
     for i, entropia_ap in enumerate(entropias_a_posteriori):
-        print(f"H(A/b{i}) {entropia_ap:.4f} bits")
+        print(f"H(A/b{i}) = {entropia_ap:.4f} bits")
     print("-----------------\n")
 
 if __name__ == "__main__":
