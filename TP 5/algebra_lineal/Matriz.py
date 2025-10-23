@@ -1,3 +1,5 @@
+"""Módulo que contiene la implementación de una clase Matriz genérica en Python."""
+
 from typing import TypeVar, Generic
 
 T = TypeVar('T')
