@@ -21,13 +21,13 @@ def get_probabilidades_salidas(probabilidades_a_priori: list[float], matriz_cana
     :return: Lista de probabilidades de las salidas.
     """
     # Convertir la lista de probabilidades a priori en una matriz columna
-    matriz_entradas = Matriz(probabilidades_a_priori)
+    matriz_entradas = Matriz([probabilidades_a_priori])
     
     # Calcular la matriz de probabilidades de salidas
     matriz_salidas = matriz_entradas * matriz_canal
 
     # Devolver la lista de probabilidades de las salidas
-    return [matriz_salidas[i][0] for i in range(matriz_salidas.cantidadFilas)]
+    return matriz_salidas[0]
 
 def get_probabilidades_a_posteriori(probabilidades_a_priori: list[float], matriz_canal: Matriz[float]) -> Matriz[float]:
     """
