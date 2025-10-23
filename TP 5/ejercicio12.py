@@ -7,12 +7,14 @@ from Utils import entropia, get_frecuencias_relativas
 
 def resolver(titulo, a_priori, matriz):
     print(titulo)
-    print("Entropía a priori: ", entropia(a_priori))
-    print("Entropías a posteriori: ", entropia_a_posteriori(a_priori, matriz))
+    print(f"H(A) {entropia(a_priori):.4f} bits")
+    entropias_a_posteriori = entropia_a_posteriori(a_priori, matriz)
+    for i, entropia_ap in enumerate(entropias_a_posteriori):
+        print(f"H(A/{i}) {entropia_ap:.4f} bits")
     print("-----------------\n")
 
 if __name__ == "__main__":
-    resolver("Ejercicio 1", get_frecuencias_relativas(ENTRADA), get_matriz_del_canal(ENTRADA, SALIDA))
-    resolver("Ejercicio 3 - Canal 1", get_frecuencias_relativas(CANAL1.get_entrada), get_matriz_del_canal(CANAL1.get_entrada, CANAL1.get_salida))
-    resolver("Ejercicio 3 - Canal 2", get_frecuencias_relativas(CANAL2.get_entrada), get_matriz_del_canal(CANAL2.get_entrada, CANAL2.get_salida))
+    resolver("Ejercicio 1", list(dict(sorted(get_frecuencias_relativas(ENTRADA).items())).values()), get_matriz_del_canal(ENTRADA, SALIDA))
+    resolver("Ejercicio 3 - Canal 1", list(dict(sorted(get_frecuencias_relativas(CANAL1.get_entrada).items())).values()), get_matriz_del_canal(CANAL1.get_entrada, CANAL1.get_salida))
+    resolver("Ejercicio 3 - Canal 2", list(dict(sorted(get_frecuencias_relativas(CANAL2.get_entrada).items())).values()), get_matriz_del_canal(CANAL2.get_entrada, CANAL2.get_salida))
     resolver("Ejercicio 6", PROBABILIDADES_A_PRIORI, MATRIZ_CANAL)
