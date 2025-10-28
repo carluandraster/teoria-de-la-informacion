@@ -1,6 +1,7 @@
 from algebra_lineal.Matriz import Matriz
 from Utils import entropia
-from ejercicio7 import get_probabilidades_salidas
+from ejercicio7 import get_probabilidades_salidas, get_probabilidades_eventos_simultaneos
+from ejercicio11 import entropia_a_posteriori
 
 # Probabilidades a priori
 PROBS_C1 = [0.70, 0.30]
@@ -35,7 +36,11 @@ MAT_C4 = Matriz([
 def resolver(titulo: str, probs: list[float], matriz: Matriz[float]) -> None:
     print(titulo)
     print(f"H(A) = {entropia(probs):.4f} bits")
-    print(f"H(B) = {entropia(get_probabilidades_salidas(probs, matriz)):.4f} bits")
+    probabilidades_salidas = get_probabilidades_salidas(probs, matriz)
+    print(f"H(B) = {entropia(probabilidades_salidas):.4f} bits")
+    print(f"P(b) = {probabilidades_salidas}")
+    print(f"H(A/b) = {entropia_a_posteriori(probs, matriz)}")
+    print(f"P(a, b) = {get_probabilidades_eventos_simultaneos(probs, matriz)}")
     print("-----------------\n")
 
 resolver("C1", PROBS_C1, MAT_C1)
