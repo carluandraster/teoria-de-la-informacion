@@ -44,7 +44,8 @@ def resolver(titulo: str, probs: list[float], matriz: Matriz[float]) -> None:
     print(f"P(a, b) = {get_probabilidades_eventos_simultaneos(probs, matriz)}")
     print("-----------------\n")
 
-resolver("C1", PROBS_C1, MAT_C1)
-resolver("C2", PROBS_C2, MAT_C2)
-resolver("C3", PROBS_C3, MAT_C3)
-resolver("C4", PROBS_C4, MAT_C4)
+if __name__ == "__main__":
+    resolver("C1", PROBS_C1, MAT_C1)
+    resolver("C2", PROBS_C2, MAT_C2)
+    resolver("C3", PROBS_C3, MAT_C3)
+    resolver("C4", PROBS_C4, MAT_C4)
