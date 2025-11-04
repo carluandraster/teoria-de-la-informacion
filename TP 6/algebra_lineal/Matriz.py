@@ -217,6 +217,45 @@ class Matriz(Generic[T]):
         for i in range(self.__cantFilas):
             self.__matriz[i].append(columna[i])
         self.__cantColumnas += 1
+    
+    def insertar_fila(self, indice: int, fila: list[T]) -> None:
+        """
+        Inserta una fila en la posición especificada.
+
+        Parámetros:
+            indice (int): La posición donde se insertará la fila (0-indexado).
+            fila (list[T]): La fila a insertar. Debe tener el mismo número de columnas que la matriz.
+
+        Lanza:
+            ValueError: Si la longitud de la fila no coincide con el número de columnas.
+            IndexError: Si el índice está fuera de rango.
+        """
+        if len(fila) != self.__cantColumnas:
+            raise ValueError("La fila debe tener el mismo número de columnas que la matriz.")
+        if not (0 <= indice <= self.__cantFilas):
+            raise IndexError("Índice fuera de rango.")
+        self.__matriz.insert(indice, fila)
+        self.__cantFilas += 1
+    
+    def insertar_columna(self, indice: int, columna: list[T]) -> None:
+        """
+        Inserta una columna en la posición especificada.
+
+        Parámetros:
+            indice (int): La posición donde se insertará la columna (0-indexado).
+            columna (list[T]): La columna a insertar. Debe tener el mismo número de filas que la matriz.
+
+        Lanza:
+            ValueError: Si la longitud de la columna no coincide con el número de filas.
+            IndexError: Si el índice está fuera de rango.
+        """
+        if len(columna) != self.__cantFilas:
+            raise ValueError("La columna debe tener el mismo número de filas que la matriz.")
+        if not (0 <= indice <= self.__cantColumnas):
+            raise IndexError("Índice fuera de rango.")
+        for i in range(self.__cantFilas):
+            self.__matriz[i].insert(indice, columna[i])
+        self.__cantColumnas += 1
 
     def normalizar(self, axis = False) -> None:
         """
