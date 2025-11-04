@@ -47,10 +47,10 @@ MAT_C4 = Matriz([
 def resolver(titulo: str, probs: list[float], matriz: Matriz[float]) -> None:
     print(titulo)
     probabilidades_salidas = get_probabilidades_salidas(probs, matriz)
-    print(f"a) H(A) = {entropia(probs):.4f} bits\tH(B) = {entropia(probabilidades_salidas):.4f} bits")
-    print(f"b) H(A/B) = {ej15.get_ruido(probs, matriz):.4f} bits\tH(B/A) = {ej15.get_perdida(probs, matriz):.4f} bits")
-    print(f"c) Entropía Afín = {ej15.get_entropia_afin(probs, matriz):.4f} bits")
-    print(f"d) Información Mutua I(A;B) = {ej15.get_informacion_mutua(probs, matriz):.4f} bits")
+    print(f"a) H(A) = {entropia(probs):.4f} bits\t\tH(B) = {entropia(probabilidades_salidas):.4f} bits")
+    print(f"b) H(A/B) = {ej15.get_ruido(probs, matriz):.4f} bits\t\tH(B/A) = {ej15.get_perdida(probs, matriz):.4f} bits")
+    print(f"c) H(A,B) = {ej15.get_entropia_afin(probs, matriz):.4f} bits")
+    print(f"d) I(A,B) = I(B,A) = {ej15.get_informacion_mutua(probs, matriz):.4f} bits")
     print("-----------------\n")
 
 resolver("C1", PROBS_C1, MAT_C1)
