@@ -1,3 +1,16 @@
+"""Ejercicio 15
+------------------------------
+
+Módulo que contiene funciones para calcular diversas métricas de un canal de comunicación, como el ruido, la pérdida, la entropía afín y la información mutua.
+
+Funciones:
+--------------------
+- get_ruido(probs_a_priori: list[float], probs_condicionales: Matriz[float]) -> float
+- get_perdida(probs_a_priori: list[float], probs_condicionales: Matriz[float]) -> float
+- get_entropia_afin(probs_a_priori: list[float], probs_condicionales: Matriz[float]) -> float
+- get_informacion_mutua(probs_a_priori: list[float], probs_condicionales: Matriz[float]) -> float
+"""
+
 import math
 from algebra_lineal.Matriz import Matriz
 from Utils import entropia
