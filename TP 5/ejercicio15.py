@@ -67,5 +67,6 @@ def get_informacion_mutua(probs_a_priori: list[float], probs_condicionales: Matr
     probs_salidas = get_probabilidades_salidas(probs_a_priori, probs_condicionales)
     for a in range(len(probs_a_priori)):
         for b in range(len(probs_salidas)):
+            if(P[a][b] > 0):
                 informacion_mutua += P[a][b] * math.log2(P[a][b] / (probs_a_priori[a] * probs_salidas[b]))
     return informacion_mutua
