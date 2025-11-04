@@ -1,5 +1,6 @@
 from Utils import get_ruido, get_perdida, get_informacion_mutua
 from algebra_lineal.Matriz import Matriz
+from ejercicio2 import es_canal_sin_ruido, es_canal_determinante
 
 CANAL_1 = Matriz([[0, 1, 0],
                   [0, 0, 1],
@@ -26,6 +27,20 @@ def resolver(titulo: str, matriz: Matriz[float]) -> None:
     perdida = get_perdida(probs_a_priori, matriz)
     info_mutua = get_informacion_mutua(probs_a_priori, matriz)
 
+    canal_sin_ruido = es_canal_sin_ruido(matriz)
+    canal_determinante = es_canal_determinante(matriz)
+    if canal_determinante and canal_sin_ruido:
+        print("b) El canal es sin ruido y determinante.")
+    else:
+        if canal_sin_ruido:
+            print("b) El canal es sin ruido.")
+        else:
+            if canal_determinante:
+                print("b) El canal es determinante.")
+            else:
+                print("b) Ninguna.")
+
+    print("Inciso c)")
     print(f"H(A/B) = {ruido:.2f} bits")
     print(f"H(B/A) = {perdida:.2f} bits")
     print(f"I(A,B) = {info_mutua:.2f} bits")
