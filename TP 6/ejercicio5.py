@@ -12,11 +12,7 @@ A_4 = [1/4] * 4
 def resolver(titulo, probs_a_priori, matriz_canal: Matriz[float]):
     print(f"---{titulo}---")
     print("I(A,B) = ", get_informacion_mutua(probs_a_priori, matriz_canal))
-    post_producto = mf.identidad(matriz_canal.cantidadColumnas - 1)
-    post_producto.insertar_fila(1, [1, 0, 0])
-    matriz_canal *= post_producto
-    print("Canal modificado:\n", matriz_canal)
-    print("I(A,B) = ", get_informacion_mutua(probs_a_priori, matriz_canal))
+    print("Canal modificado:\n", reducir_matriz(matriz_canal))
     if es_canal_determinante(matriz_canal):
         print("El canal es determinante después de la modificación.")
     else:
@@ -46,6 +42,9 @@ if __name__ == "__main__":
     ])
 
     resolver("---Canal 1---", A_1, canal_1)
+    resolver("---Canal 2---", A_2, canal_2)
+    resolver("---Canal 3---", A_3, canal_3)
+    resolver("---Canal 4---", A_4, canal_4)
 
     # print("\n---Canal 2---")
     # print("I(A,B) = ", get_informacion_mutua(A_2, canal_2))
