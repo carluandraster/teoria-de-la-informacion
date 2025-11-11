@@ -22,7 +22,7 @@ def maximizar_informacion_mutua(canal: Matriz[float], h: float) -> tuple[float, 
     capacidad = -1.0
     omega = 0.0
     while omega <= 1.0:
-        p_apriori = [omega], [1 - omega]
+        p_apriori = [omega, 1 - omega]
         info_mutua = get_informacion_mutua(p_apriori, canal)
         if info_mutua > capacidad:
             capacidad = info_mutua
