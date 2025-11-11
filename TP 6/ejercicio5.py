@@ -11,9 +11,10 @@ A_4 = [1/4] * 4
 
 def resolver(titulo, probs_a_priori, matriz_canal: Matriz[float]):
     print(f"---{titulo}---")
-    print("a) Canal modificado:\n", reducir_matriz(matriz_canal))
-    print("b) I(A,B) = ", get_informacion_mutua(probs_a_priori, matriz_canal))
-    if es_canal_determinante(matriz_canal):
+    matriz_reducida = reducir_matriz(matriz_canal)
+    print("a) Canal modificado:\n", matriz_reducida.redondear(1))
+    print(f"b) I(A,B) = {get_informacion_mutua(probs_a_priori, matriz_canal):.2f} bits")
+    if es_canal_determinante(matriz_reducida):
         print("c) Sí, el canal es determinante.")
     else:
         print("c) No, el canal no es determinante después de la modificación.")
