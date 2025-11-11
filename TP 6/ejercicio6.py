@@ -54,8 +54,8 @@ def generar_matriz_determinante(matriz_de_canal: Matriz[float], columna1: int, c
         Matriz[float]: La matriz de determinante para la reducción.
     """
     columnas = matriz_de_canal.cantidadColumnas - 1
-    matriz_determinante = identidad(columnas - 1)
-    fila_nueva = [0] * (columnas - 1)
+    matriz_determinante = identidad(columnas)
+    fila_nueva = [0] * (columnas)
     fila_nueva[columna1] = 1
     matriz_determinante.insertar_fila(columna2, fila_nueva)
 
