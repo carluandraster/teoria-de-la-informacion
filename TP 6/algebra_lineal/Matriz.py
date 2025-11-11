@@ -294,3 +294,19 @@ class Matriz(Generic[T]):
         """
         valores_copiados = [[self.__matriz[i][j] for j in range(self.__cantColumnas)] for i in range(self.__cantFilas)]
         return Matriz(valores_copiados)
+    
+    def redondear(self, decimales: int) -> 'Matriz[T]':
+        """
+        Redondea los elementos de la matriz a un número específico de decimales.
+        
+        Args:
+            decimales (int): El número de decimales a los que redondear los elementos de la matriz.
+
+        Returns:
+            Matriz[T]: Una nueva matriz con los elementos redondeados.
+        """
+        matriz_redondeada = self.clone
+        for i in range(matriz_redondeada.__cantFilas):
+            for j in range(matriz_redondeada.__cantColumnas):
+                matriz_redondeada.__matriz[i][j] = round(matriz_redondeada.__matriz[i][j], decimales)
+        return matriz_redondeada
