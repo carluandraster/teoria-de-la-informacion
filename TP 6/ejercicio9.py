@@ -31,8 +31,9 @@ def es_uniforme(matriz: Matriz) -> bool:
     """
     primera_fila = matriz[0]
     for i in range(1, matriz.cantidadFilas):
-        if matriz[i] not in primera_fila:
-            return False
+        for j in range(matriz.cantidadColumnas):
+            if matriz[i][j] not in primera_fila:
+                return False
     return True
 
 def capacidad_canal(matriz: Matriz) -> float:
