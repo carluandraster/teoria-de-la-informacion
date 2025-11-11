@@ -284,3 +284,13 @@ class Matriz(Generic[T]):
         """
         resultado = [[self.__matriz[j][i] for j in range(self.__cantFilas)] for i in range(self.__cantColumnas)]
         return Matriz(resultado)
+    
+    @property
+    def clone(self) -> 'Matriz[T]':
+        """
+        Devuelve una copia de la matriz.
+        Retorna:
+            Matriz[T]: Una copia de la matriz actual.
+        """
+        valores_copiados = [[self.__matriz[i][j] for j in range(self.__cantColumnas)] for i in range(self.__cantFilas)]
+        return Matriz(valores_copiados)
