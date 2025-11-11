@@ -10,4 +10,20 @@ def reducir_matriz(matriz: Matriz[float])->Matriz[float]:
     Returns:
         Matriz[float]: Matriz reducida.
     """
-    
+    matriz_reducida = matriz.clone
+    i = 0
+    j = 1
+    n = matriz_reducida.cantidadColumnas
+    while i < n or j < n:
+        if se_pueden_reducir(matriz_reducida, i, j):
+            matriz_determinante = generar_matriz_determinante(matriz_reducida, i, j)
+            matriz_reducida *= matriz_determinante
+            n -= 1
+            i = 0
+            j = 1
+        else:
+            j += 1
+            if j == n:
+                i += 1
+                j = i + 1
+    return matriz_reducida
