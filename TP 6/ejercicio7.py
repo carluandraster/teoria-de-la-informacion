@@ -26,7 +26,7 @@ def reducir_matriz(matriz: Matriz[float])->Matriz[float]:
     i = 0
     j = 1
     n = matriz_reducida.cantidadColumnas
-    while i < n or j < n:
+    while i < n and j < n:
         if se_pueden_reducir(matriz_reducida, i, j):
             matriz_determinante = generar_matriz_determinante(matriz_reducida, i, j)
             matriz_reducida *= matriz_determinante
