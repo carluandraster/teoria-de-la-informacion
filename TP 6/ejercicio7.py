@@ -1,3 +1,15 @@
+"""TP 6 - Ejercicio 7
+Implementar una función que reduzca una matriz de canal combinando columnas
+cuando sea posible sin perder información. La función debe iterar hasta que no
+se puedan realizar más combinaciones.
+
+Autor: Carlos Andrés Efstratiadis
+
+Funciones:
+---------------
+    reducir_matriz: Combina de a 2 columnas de la matriz hasta que no se puedan
+                     reducir más sin perder información."""
+
 from ejercicio6 import se_pueden_reducir, generar_matriz_determinante
 from algebra_lineal.Matriz import Matriz
 
