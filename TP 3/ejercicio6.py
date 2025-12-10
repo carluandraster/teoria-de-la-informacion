@@ -35,7 +35,7 @@ def esInstantaneo(codigo: list) -> bool:
                 return False
     return True
 
-def esUnivocamenteDecodificable(codigo: list) -> bool:
+def esUnivocamenteDecodificable(codigo: list[str]) -> bool:
     """
     Verifica si un código es unívocamente decodificable.
 
@@ -47,9 +47,10 @@ def esUnivocamenteDecodificable(codigo: list) -> bool:
         - codigo no está vacío.
         - codigo es distinto de None
     """
-    S = [set(codigo), set()]
+    S: list[set[str]] = [set(codigo), set()]
     i = 0
     seguir = True
+    respuesta = True
     while seguir:
         for x in S[0]:
             for y in S[i]:
