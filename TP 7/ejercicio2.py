@@ -1,5 +1,5 @@
 from CanalFactory import crear_bsc
-from Utils import capacidad_canal
+from Canal import Canal
 from segundo_teorema_shannon import get_M
 
 # Datos del ejercicio
@@ -9,7 +9,7 @@ n = 20
 canal = crear_bsc(p)
 
 if __name__ == "__main__":
-    C = capacidad_canal(canal.get_matriz_canal)
+    C = Canal(canal.get_matriz_canal).capacidad_canal()
     M = get_M(n, C, epsilon)
     print(f"a) Capacidad del canal: {C:.4f} bits por uso")
     print(f"b) R = {C-epsilon:.4f} bits por uso")

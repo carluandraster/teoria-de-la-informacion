@@ -1,6 +1,7 @@
+import math
 from Matriz import Matriz
 import MatrizFactory as mf
-from Utils import entropia
+from Utils import entropia, funcion_entropia
 from math import log2, isclose
 
 class Canal:
@@ -199,3 +200,185 @@ class Canal:
                 if(P[a][b] > 0):
                     informacion_mutua += P[a][b] * log2(P[a][b] / (self.__probs_a_priori[a] * probs_salidas[b]))
         return informacion_mutua
+    
+    def es_uniforme(self) -> bool:
+        """Determina si un canal es uniforme.
+
+        Un canal es uniforme si todas las filas de su matriz contienen los mismos números.
+
+        Parámetros:
+        -----------
+        matriz : Matriz
+            Matriz de transición del canal.
+
+        Retorna:
+        --------
+        bool
+            True si el canal es uniforme, False en caso contrario.
+        """
+        primera_fila = self.__matriz_canal[0]
+        for i in range(1, self.__matriz_canal.cantidadFilas):
+            for j in range(self.__matriz_canal.cantidadColumnas):
+                if self.__matriz_canal[i][j] not in primera_fila:
+                    return False
+        return True
+
+    def es_canal_sin_ruido(self) -> bool:
+        """
+        Devuelve true si la matriz corresponde a un canal sin ruido, es decir, si cada columna tiene un único valor distinto de 0.
+
+        Parámetros:
+        ------------------
+        - matriz_canal (Matriz[float]): Matriz que representa el canal de comunicación.
+
+        Retorna:
+        -----------------
+        - bool: True si el canal es sin ruido, False en caso contrario.
+        """
+        N = self.__matriz_canal.cantidadFilas
+        M = self.__matriz_canal.cantidadColumnas
+        j = 0
+        respuesta = True
+        while j<M and respuesta:
+            contador_valores_distintos_de_cero = 0
+            i = 0
+            while i<N and contador_valores_distintos_de_cero <= 1:
+                if self.__matriz_canal[i][j] != 0:
+                    contador_valores_distintos_de_cero += 1
+                i += 1
+            if contador_valores_distintos_de_cero > 1:
+                respuesta = False
+            j += 1
+        return respuesta
+
+    def es_canal_determinante(self) -> bool:
+        """Devuelve true si la matriz corresponde a un canal determinante, es decir, si cada fila tiene un único valor distinto de 0.
+        
+        Parámetros:
+        ------------------
+        - matriz_canal (Matriz[float]): Matriz que representa el canal de comunicación.
+        
+        Retorna:
+        -----------------
+        - bool: True si el canal es determinante, False en caso contrario.
+        """
+        N = self.__matriz_canal.cantidadFilas
+        M = self.__matriz_canal.cantidadColumnas
+        i = 0
+        respuesta = True
+        while i<N and respuesta:
+            contador_valores_distintos_de_cero = 0
+            j = 0
+            while j<M and contador_valores_distintos_de_cero <= 1:
+                if self.__matriz_canal[i][j] != 0:
+                    contador_valores_distintos_de_cero += 1
+                j += 1
+            if contador_valores_distintos_de_cero != 1:
+                respuesta = False
+            i += 1
+        return respuesta
+
+    def _get_cantidad_columnas_no_nulas(self) -> int:
+        """
+        Devuelve la cantidad de columnas no nulas en una matriz.
+
+        Parámetros:
+        -----------
+        matriz : Matriz
+            Matriz de transición del canal.
+
+        Retorna:
+        --------
+        int
+            Cantidad de columnas no nulas.
+        """
+        cant_col_no_nulas = 0
+        for j in range(self.__matriz_canal.cantidadColumnas):
+            columna = self.__matriz_canal.getColumna(j)
+            if any(p > 0 for p in columna):
+                cant_col_no_nulas += 1
+        return cant_col_no_nulas
+
+    def es_canal_bsc(self) -> bool:
+        """
+        Determina si un canal es un Binary Symmetric Channel (BSC).
+
+        Un canal es un BSC si tiene dos símbolos de entrada y dos símbolos de salida,
+        y las probabilidades de error son iguales para ambos símbolos.
+
+        Parámetros:
+        -----------
+        matriz : Matriz
+            Matriz de transición del canal.
+
+        Retorna:
+        --------
+        bool
+            True si el canal es un BSC, False en caso contrario.
+        """
+        if self.__matriz_canal.cantidadFilas != 2 or self._get_cantidad_columnas_no_nulas() != 2:
+            return False
+        p_error_0 = self.__matriz_canal[0][1]
+        p_error_1 = self.__matriz_canal[1][0]
+        return math.isclose(p_error_0, p_error_1)
+
+    def capacidad_canal(self) -> float:
+        """
+        Determina la capacidad de un canal de comunicación.
+
+        La capacidad de un canal es la máxima cantidad de información que puede ser transmitida.
+
+        Parámetros:
+        -----------
+        matriz : Matriz
+            Matriz de transición del canal.
+
+        Retorna:
+        --------
+        float
+            Capacidad del canal.
+        """
+        if self.es_canal_determinante():
+            cant_col_no_nulas = self._get_cantidad_columnas_no_nulas()
+            return log2(cant_col_no_nulas)
+        else:
+            if self.es_canal_sin_ruido():
+                return log2(self.__matriz_canal.cantidadFilas)
+            if self.es_uniforme():
+                return log2(self._get_cantidad_columnas_no_nulas()) - entropia(self.__matriz_canal[0])
+            else:
+                if self.es_canal_bsc():
+                    p_error = self.__matriz_canal[0][1]
+                    return 1 - funcion_entropia(p_error)
+                else:
+                    if self.__matriz_canal.cantidadFilas == 2:
+                        _, capacidad = self.maximizar_informacion_mutua()
+                        return capacidad
+                    else:
+                        raise ValueError("Cálculo de capacidad no implementado para este tipo de canal.")
+
+    def maximizar_informacion_mutua(self, h: float = 0.0001) -> tuple[float, float]:
+        """
+        Calcula la capacidad de un canal binario y la probabilidad óptima de entrada
+
+        Args:
+            canal (Matriz[float]): Matriz de transición del canal binario.
+            h (float): Paso.
+        
+        Returns:
+            tuple[float, float]: probabilidad óptima de entrada y capacidad del canal.
+        """
+        if self.__matriz_canal.cantidadFilas != 2:
+            raise ValueError("La matriz del canal debe ser binaria (2 filas).")
+        capacidad = -1.0
+        omega = 0.0
+        probabilidad_optima = 0.0
+        while omega <= 1.0:
+            p_apriori = [omega, 1 - omega]
+            canal_obj = Canal(self.__matriz_canal, p_apriori)
+            info_mutua = canal_obj.get_informacion_mutua()
+            if info_mutua > capacidad:
+                capacidad = info_mutua
+                probabilidad_optima = omega
+            omega += h
+        return probabilidad_optima, capacidad
