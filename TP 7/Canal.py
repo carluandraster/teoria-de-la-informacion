@@ -1,4 +1,4 @@
-from .Matriz import Matriz
+from Matriz import Matriz
 import MatrizFactory as mf
 from Utils import entropia
 from math import log2, isclose

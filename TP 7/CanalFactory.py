@@ -5,10 +5,10 @@ Funciones:
 - <b>get_matriz_del_canal(entrada: str, salida: str) -> Matriz[float]:</b> Genera una matriz de canal a partir de las secuencias de entrada y salida.
 - <b>crear_canal(entrada: str, salida: str) -> Canal:</b> Crea un objeto Canal a partir de las secuencias de entrada y salida."""
 
-from .Canal import Canal
-from .Matriz import Matriz
-from . import MatrizFactory as mf
-from .Utils import get_frecuencias_relativas
+from Canal import Canal
+from Matriz import Matriz
+import MatrizFactory as mf
+from Utils import get_frecuencias_relativas
 
 def get_matriz_del_canal(entrada: str, salida: str) -> Matriz[float]:
     """
