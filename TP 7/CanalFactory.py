@@ -54,3 +54,15 @@ def crear_canal(entrada: str, salida: str) -> Canal:
     frecuencias_entrada = get_frecuencias_relativas(entrada)
     probabilidades_a_priori = [frecuencias_entrada[simbolo] for simbolo in simbolos_entrada]
     return Canal(matriz_canal, probabilidades_a_priori)
+
+def crear_bsc(p: float, probs_a_priori: list[float] = [0.5, 0.5]) -> Canal:
+    """
+    Crea un objeto Canal que representa un Binary Symmetric Channel (BSC) con una probabilidad de error dada.
+
+    :param p: Probabilidad de error del canal.
+    :param probs_a_priori: Lista de probabilidades a priori para los símbolos de entrada. Por defecto es [0.5, 0.5].
+
+    :return: Objeto Canal que representa el BSC.
+    """
+    matriz_canal = Matriz([[1-p, p], [p, 1-p]])
+    return Canal(matriz_canal, probs_a_priori)
