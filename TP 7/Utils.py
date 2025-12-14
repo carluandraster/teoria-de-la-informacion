@@ -154,6 +154,50 @@ def es_canal_determinante(matriz_canal: Matriz[float]) -> bool:
         i += 1
     return respuesta
 
+def _get_cantidad_columnas_no_nulas(matriz: Matriz[float]) -> int:
+    """
+    Devuelve la cantidad de columnas no nulas en una matriz.
+
+    Parámetros:
+    -----------
+    matriz : Matriz
+        Matriz de transición del canal.
+
+    Retorna:
+    --------
+    int
+        Cantidad de columnas no nulas.
+    """
+    cant_col_no_nulas = 0
+    for j in range(matriz.cantidadColumnas):
+        columna = matriz.getColumna(j)
+        if any(p > 0 for p in columna):
+            cant_col_no_nulas += 1
+    return cant_col_no_nulas
+
+def es_canal_bsc(matriz: Matriz[float]) -> bool:
+    """
+    Determina si un canal es un Binary Symmetric Channel (BSC).
+
+    Un canal es un BSC si tiene dos símbolos de entrada y dos símbolos de salida,
+    y las probabilidades de error son iguales para ambos símbolos.
+
+    Parámetros:
+    -----------
+    matriz : Matriz
+        Matriz de transición del canal.
+
+    Retorna:
+    --------
+    bool
+        True si el canal es un BSC, False en caso contrario.
+    """
+    if matriz.cantidadFilas != 2 or _get_cantidad_columnas_no_nulas(matriz) != 2:
+        return False
+    p_error_0 = matriz[0][1]
+    p_error_1 = matriz[1][0]
+    return math.isclose(p_error_0, p_error_1)
+
 def capacidad_canal(matriz: Matriz[float]) -> float:
     """
     Determina la capacidad de un canal de comunicación.
@@ -171,19 +215,23 @@ def capacidad_canal(matriz: Matriz[float]) -> float:
         Capacidad del canal.
     """
     if es_canal_determinante(matriz):
-        cant_col_no_nulas = 0
-        for j in range(matriz.cantidadColumnas):
-            columna = matriz.getColumna(j)
-            if any(p > 0 for p in columna):
-                cant_col_no_nulas += 1
+        cant_col_no_nulas = _get_cantidad_columnas_no_nulas(matriz)
         return log2(cant_col_no_nulas)
     else:
         if es_canal_sin_ruido(matriz):
             return log2(matriz.cantidadFilas)
         if es_uniforme(matriz):
-            return log2(matriz.cantidadColumnas) - entropia(matriz[0])
+            return log2(_get_cantidad_columnas_no_nulas(matriz)) - entropia(matriz[0])
         else:
-            raise ValueError("No se pudo clasificar el canal")
+            if es_canal_bsc(matriz):
+                p_error = matriz[0][1]
+                return 1 - funcion_entropia(p_error)
+            else:
+                if matriz.cantidadFilas == 2:
+                    _, capacidad = maximizar_informacion_mutua(matriz)
+                    return capacidad
+                else:
+                    raise ValueError("Cálculo de capacidad no implementado para este tipo de canal.")
 
 def maximizar_informacion_mutua(canal: Matriz[float], h: float = 0.0001) -> tuple[float, float]:
     """
