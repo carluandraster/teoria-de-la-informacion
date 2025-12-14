@@ -10,4 +10,4 @@ if __name__ == "__main__":
     print(f"Número máximo de mensajes M para n={n} y ε={epsilon}: {m}")
     n = 1000
     m = get_M(n, C, epsilon)
-    print(f"Número máximo de mensajes M para n={n} y ε={epsilon}: {m}")
+    print(f"Número máximo de mensajes M para n={n} y ε={epsilon}: {m:.2e}")
